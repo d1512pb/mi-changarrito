@@ -21,7 +21,9 @@ Un changarrito puede operar en varios tianguis según el día. Su identidad se m
 2. **Completado con datos sintéticos:** «Tengo $100 y quiero comer». Referencias a ofertas existentes, presupuesto comprobado con reglas y Haiku en esfuerzo alto.
 3. **Puente local listo; conexión con aplicación pendiente:** backend envía consulta, tianguis, jornadas y ofertas públicas; IA devuelve una propuesta estructurada; backend revalida estado, vigencia y total antes de entregar a frontend.
 4. **Completado en simulación de catálogo con Claude real:** al agotarse una oferta, la siguiente consulta propone otra; al agotar las alternativas dentro del presupuesto responde sin coincidencias y sin llamar otra vez a IA. La simulación no modifica datos de la aplicación.
-5. **Evolución por evaluar:** voz, extracción de menús y un flujo con lector de intención, consulta de catálogo y verificador. Las tareas de escritura mantienen los permisos y confirmaciones que aplique backend.
+5. **Chat administrativo y datos para dashboard listos con información sintética:** comparación de precios por artículo/presentación/unidad, giros, padrón, asistencia y reportes. La [integración administrativa](ADMIN_INTEGRACION.md) aplica alcance y permisos; frontend, datos reales y PDF mensual siguen pendientes.
+6. **Adaptación al backend preparada:** revisión de su rama y traducción de sus ofertas; no se deducen participaciones/jornadas faltantes. Ver [revisión](REVISION_BACKEND.md).
+7. **Evolución por evaluar:** mapa para comprador y administrador, CoDi, voz, extracción de menús y agentes. El mapa queda al final por indicación de Daniel. Las tareas de escritura mantienen los permisos y confirmaciones que aplique backend.
 
 ## Control del consumo
 

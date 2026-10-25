@@ -1,0 +1,199 @@
+{
+  "schema_version": "admin-chat-1.0",
+  "mode": "live",
+  "read_only": true,
+  "status": "ok",
+  "answer": "Preparé comparación de precios por artículo y unidad para 2026-10 dentro de tu alcance autorizado. Hay 3 filas de resultado. Las comparaciones separan artículos, presentación y unidad; revisa mediana, rango y tamaño de muestra. Para Jitomate (saladette), las medianas observadas van de $29.00 en Tianguis Demo Oriente a $38.00 en Tianguis Demo Centro: diferencia de $9.00 MXN/kg. Los datos son sintéticos; todavía no representan el PDF mensual real.",
+  "conversation_state": {
+    "filters": {
+      "period": "2026-10",
+      "borough": null,
+      "tianguis_ids": [],
+      "category": "verduras",
+      "article_id": "jitomate",
+      "date": null
+    },
+    "last_action": "prices"
+  },
+  "data": {
+    "schema_version": "admin-analytics-1.0",
+    "is_demo": true,
+    "snapshot_id": "admin-demo-2026-10-25",
+    "action": "prices",
+    "filters": {
+      "period": "2026-10",
+      "borough": null,
+      "tianguis_ids": [],
+      "category": "verduras",
+      "article_id": "jitomate",
+      "date": null
+    },
+    "metrics": {
+      "price_records": 8,
+      "normalized_samples": 5,
+      "article_groups": 2,
+      "comparable_groups": 1,
+      "sample_policy": "última observación confirmada por negocio-tianguis-artículo-variante-unidad-moneda del periodo"
+    },
+    "rows": [
+      {
+        "article_id": "jitomate",
+        "article_name": "Jitomate",
+        "variant": "cherry",
+        "unit": "kg",
+        "currency": "MXN",
+        "tianguis_id": "t-centro",
+        "tianguis_name": "Tianguis Demo Centro",
+        "n_samples": 1,
+        "n_businesses": 1,
+        "median_price_cents": 6000,
+        "min_price_cents": 6000,
+        "max_price_cents": 6000,
+        "spread_market_medians_cents": null,
+        "spread_market_medians_percent": null,
+        "source_ids": [
+          "src-prices-2026-10"
+        ],
+        "references": [
+          {
+            "observation_id": "o-oct-cherry",
+            "source_id": "src-prices-2026-10",
+            "page": 7,
+            "observed_on": "2026-10-24"
+          }
+        ]
+      },
+      {
+        "article_id": "jitomate",
+        "article_name": "Jitomate",
+        "variant": "saladette",
+        "unit": "kg",
+        "currency": "MXN",
+        "tianguis_id": "t-centro",
+        "tianguis_name": "Tianguis Demo Centro",
+        "n_samples": 2,
+        "n_businesses": 2,
+        "median_price_cents": 3800,
+        "min_price_cents": 3400,
+        "max_price_cents": 4200,
+        "spread_market_medians_cents": 900,
+        "spread_market_medians_percent": 31.03,
+        "source_ids": [
+          "src-prices-2026-10"
+        ],
+        "references": [
+          {
+            "observation_id": "o-oct-latest",
+            "source_id": "src-prices-2026-10",
+            "page": 2,
+            "observed_on": "2026-10-25"
+          },
+          {
+            "observation_id": "o-oct-halfkg",
+            "source_id": "src-prices-2026-10",
+            "page": 3,
+            "observed_on": "2026-10-24"
+          }
+        ]
+      },
+      {
+        "article_id": "jitomate",
+        "article_name": "Jitomate",
+        "variant": "saladette",
+        "unit": "kg",
+        "currency": "MXN",
+        "tianguis_id": "t-oriente",
+        "tianguis_name": "Tianguis Demo Oriente",
+        "n_samples": 2,
+        "n_businesses": 2,
+        "median_price_cents": 2900,
+        "min_price_cents": 2800,
+        "max_price_cents": 3000,
+        "spread_market_medians_cents": 900,
+        "spread_market_medians_percent": 31.03,
+        "source_ids": [
+          "src-prices-2026-10"
+        ],
+        "references": [
+          {
+            "observation_id": "o-oct-oriente1",
+            "source_id": "src-prices-2026-10",
+            "page": 4,
+            "observed_on": "2026-10-24"
+          },
+          {
+            "observation_id": "o-oct-oriente2",
+            "source_id": "src-prices-2026-10",
+            "page": 5,
+            "observed_on": "2026-10-24"
+          }
+        ]
+      }
+    ],
+    "charts": [
+      {
+        "type": "bar",
+        "title": "Precio mediano: Jitomate, cherry (2026-10)",
+        "x_label": "Tianguis",
+        "y_label": "Precio mediano (MXN/kg)",
+        "data": [
+          {
+            "tianguis": "Tianguis Demo Centro",
+            "median_price": 60,
+            "n_samples": 1
+          }
+        ]
+      },
+      {
+        "type": "bar",
+        "title": "Precio mediano: Jitomate, saladette (2026-10)",
+        "x_label": "Tianguis",
+        "y_label": "Precio mediano (MXN/kg)",
+        "data": [
+          {
+            "tianguis": "Tianguis Demo Centro",
+            "median_price": 38,
+            "n_samples": 2
+          },
+          {
+            "tianguis": "Tianguis Demo Oriente",
+            "median_price": 29,
+            "n_samples": 2
+          }
+        ]
+      }
+    ],
+    "map_points": [],
+    "sources": [
+      {
+        "id": "src-roster",
+        "label": "Fuente de demostración",
+        "kind": "synthetic_register",
+        "is_demo": true
+      },
+      {
+        "id": "src-prices-2026-10",
+        "label": "Fuente de demostración",
+        "kind": "synthetic_monthly_report",
+        "is_demo": true,
+        "period": "2026-10",
+        "page_count": 16
+      }
+    ],
+    "warnings": [
+      "Datos sintéticos de demostración; no se recibió ni leyó un PDF mensual real.",
+      "Se excluyeron 1 registros de precios: fechas futuras.",
+      "Se excluyeron 2 registros de precios: precio, unidad o confirmación insuficiente.",
+      "Comparaciones descriptivas por artículo, variante, unidad y moneda; no se promedian categorías heterogéneas ni se infieren causas."
+    ]
+  },
+  "metrics": {
+    "generation_requests": 1,
+    "model": "claude-haiku-5-5",
+    "effort": "high",
+    "latency_ms": 2913,
+    "input_tokens": 1462,
+    "output_tokens": 63,
+    "estimated_token_cost_usd": 0.0001777
+  }
+}

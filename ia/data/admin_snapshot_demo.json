@@ -1,0 +1,657 @@
+{
+  "schema_version": "admin-snapshot-1.0",
+  "snapshot_id": "admin-demo-2026-10-25",
+  "is_demo": true,
+  "as_of": "2026-10-25T12:00:00-06:00",
+  "period": "2026-10",
+  "sources": [
+    {
+      "id": "src-roster",
+      "label": "Padron sintetico de tianguis y gerentes",
+      "kind": "synthetic_register",
+      "is_demo": true,
+      "note": "Fuente sintetica de demostracion: no se recibio ni se leyo el PDF mensual real."
+    },
+    {
+      "id": "src-attendance",
+      "label": "Pase de lista sintetico por jornada",
+      "kind": "synthetic_attendance",
+      "is_demo": true,
+      "note": "Fuente sintetica de demostracion: no se recibio ni se leyo el PDF mensual real."
+    },
+    {
+      "id": "src-delivery",
+      "label": "Registro sintetico de entregas mensuales",
+      "kind": "synthetic_delivery_log",
+      "is_demo": true,
+      "note": "Fuente sintetica de demostracion: no se recibio ni se leyo el PDF mensual real."
+    },
+    {
+      "id": "src-prices-2026-09",
+      "label": "Reporte mensual sintetico 2026-09",
+      "kind": "synthetic_monthly_report",
+      "period": "2026-09",
+      "page_count": 16,
+      "is_demo": true,
+      "note": "Fuente sintetica de demostracion: no se recibio ni se leyo el PDF mensual real."
+    },
+    {
+      "id": "src-prices-2026-10",
+      "label": "Reporte mensual sintetico 2026-10",
+      "kind": "synthetic_monthly_report",
+      "period": "2026-10",
+      "page_count": 16,
+      "is_demo": true,
+      "note": "Fuente sintetica de demostracion: no se recibio ni se leyo el PDF mensual real."
+    }
+  ],
+  "tianguis": [
+    {
+      "id": "t-centro",
+      "name": "Tianguis Demo Centro",
+      "borough": "Coyoacan",
+      "lat": 19.3467,
+      "lng": -99.1617,
+      "manager_id": "m-centro",
+      "scheduled_dates": [
+        "2026-09-27",
+        "2026-10-25"
+      ],
+      "source_id": "src-roster"
+    },
+    {
+      "id": "t-oriente",
+      "name": "Tianguis Demo Oriente",
+      "borough": "Iztapalapa",
+      "lat": 19.355,
+      "lng": -99.07,
+      "manager_id": "m-oriente",
+      "scheduled_dates": [
+        "2026-09-27",
+        "2026-10-25"
+      ],
+      "source_id": "src-roster"
+    },
+    {
+      "id": "t-parque",
+      "name": "Tianguis Demo Parque",
+      "borough": "Coyoacan",
+      "lat": null,
+      "lng": null,
+      "manager_id": "m-parque",
+      "scheduled_dates": [
+        "2026-09-27",
+        "2026-10-25"
+      ],
+      "source_id": "src-roster"
+    }
+  ],
+  "managers": [
+    {
+      "id": "m-centro",
+      "name": "Gerente Demo Centro",
+      "source_id": "src-roster"
+    },
+    {
+      "id": "m-oriente",
+      "name": "Gerente Demo Oriente",
+      "source_id": "src-roster"
+    },
+    {
+      "id": "m-parque",
+      "name": "Gerente Demo Parque",
+      "source_id": "src-roster"
+    }
+  ],
+  "businesses": [
+    {
+      "id": "b-shared",
+      "name": "Verduras Compartidas Demo",
+      "category": "verduras"
+    },
+    {
+      "id": "b-verdura-centro",
+      "name": "Verduras Centro Demo",
+      "category": "verduras"
+    },
+    {
+      "id": "b-verdura-oriente",
+      "name": "Verduras Oriente Demo",
+      "category": "verduras"
+    },
+    {
+      "id": "b-abarrotes",
+      "name": "Abarrotes Demo",
+      "category": "abarrotes"
+    },
+    {
+      "id": "b-cocina-centro",
+      "name": "Cocina Centro Demo",
+      "category": "comida_preparada"
+    },
+    {
+      "id": "b-cocina-oriente",
+      "name": "Cocina Oriente Demo",
+      "category": "comida_preparada"
+    }
+  ],
+  "participations": [
+    {
+      "id": "p-shared-centro",
+      "business_id": "b-shared",
+      "tianguis_id": "t-centro",
+      "status": "approved",
+      "source_id": "src-roster"
+    },
+    {
+      "id": "p-shared-oriente",
+      "business_id": "b-shared",
+      "tianguis_id": "t-oriente",
+      "status": "approved",
+      "source_id": "src-roster"
+    },
+    {
+      "id": "p-verdura-centro",
+      "business_id": "b-verdura-centro",
+      "tianguis_id": "t-centro",
+      "status": "approved",
+      "source_id": "src-roster"
+    },
+    {
+      "id": "p-verdura-oriente",
+      "business_id": "b-verdura-oriente",
+      "tianguis_id": "t-oriente",
+      "status": "approved",
+      "source_id": "src-roster"
+    },
+    {
+      "id": "p-abarrotes",
+      "business_id": "b-abarrotes",
+      "tianguis_id": "t-parque",
+      "status": "approved",
+      "source_id": "src-roster"
+    },
+    {
+      "id": "p-cocina-centro",
+      "business_id": "b-cocina-centro",
+      "tianguis_id": "t-centro",
+      "status": "approved",
+      "source_id": "src-roster"
+    },
+    {
+      "id": "p-cocina-oriente",
+      "business_id": "b-cocina-oriente",
+      "tianguis_id": "t-oriente",
+      "status": "approved",
+      "source_id": "src-roster"
+    }
+  ],
+  "attendance": [
+    {
+      "id": "att-2026-09-t-centro",
+      "tianguis_id": "t-centro",
+      "manager_id": "m-centro",
+      "date": "2026-09-27",
+      "status": "present",
+      "source_id": "src-attendance"
+    },
+    {
+      "id": "att-2026-09-t-oriente",
+      "tianguis_id": "t-oriente",
+      "manager_id": "m-oriente",
+      "date": "2026-09-27",
+      "status": "present",
+      "source_id": "src-attendance"
+    },
+    {
+      "id": "att-2026-09-t-parque",
+      "tianguis_id": "t-parque",
+      "manager_id": "m-parque",
+      "date": "2026-09-27",
+      "status": "unreported",
+      "source_id": "src-attendance"
+    },
+    {
+      "id": "att-2026-10-t-centro",
+      "tianguis_id": "t-centro",
+      "manager_id": "m-centro",
+      "date": "2026-10-25",
+      "status": "present",
+      "source_id": "src-attendance"
+    },
+    {
+      "id": "att-2026-10-t-oriente",
+      "tianguis_id": "t-oriente",
+      "manager_id": "m-oriente",
+      "date": "2026-10-25",
+      "status": "absent",
+      "source_id": "src-attendance"
+    },
+    {
+      "id": "att-2026-10-t-parque",
+      "tianguis_id": "t-parque",
+      "manager_id": "m-parque",
+      "date": "2026-10-25",
+      "status": "unreported",
+      "source_id": "src-attendance"
+    }
+  ],
+  "monthly_reports": [
+    {
+      "id": "report-2026-09-t-centro",
+      "tianguis_id": "t-centro",
+      "manager_id": "m-centro",
+      "period": "2026-09",
+      "due_on": "2026-09-24",
+      "submitted_at": "2026-09-23T10:00:00-06:00",
+      "source_id": "src-delivery"
+    },
+    {
+      "id": "report-2026-09-t-oriente",
+      "tianguis_id": "t-oriente",
+      "manager_id": "m-oriente",
+      "period": "2026-09",
+      "due_on": "2026-09-24",
+      "submitted_at": "2026-09-23T10:00:00-06:00",
+      "source_id": "src-delivery"
+    },
+    {
+      "id": "report-2026-09-t-parque",
+      "tianguis_id": "t-parque",
+      "manager_id": "m-parque",
+      "period": "2026-09",
+      "due_on": "2026-09-28",
+      "submitted_at": null,
+      "source_id": "src-delivery"
+    },
+    {
+      "id": "report-2026-10-t-centro",
+      "tianguis_id": "t-centro",
+      "manager_id": "m-centro",
+      "period": "2026-10",
+      "due_on": "2026-10-24",
+      "submitted_at": "2026-10-23T10:00:00-06:00",
+      "source_id": "src-delivery"
+    },
+    {
+      "id": "report-2026-10-t-oriente",
+      "tianguis_id": "t-oriente",
+      "manager_id": "m-oriente",
+      "period": "2026-10",
+      "due_on": "2026-10-24",
+      "submitted_at": null,
+      "source_id": "src-delivery"
+    },
+    {
+      "id": "report-2026-10-t-parque",
+      "tianguis_id": "t-parque",
+      "manager_id": "m-parque",
+      "period": "2026-10",
+      "due_on": "2026-10-28",
+      "submitted_at": null,
+      "source_id": "src-delivery"
+    }
+  ],
+  "price_observations": [
+    {
+      "id": "o-oct-old",
+      "tianguis_id": "t-centro",
+      "business_id": "b-shared",
+      "participation_id": "p-shared-centro",
+      "article_id": "jitomate",
+      "article_name": "Jitomate",
+      "category": "verduras",
+      "variant": "saladette",
+      "price_cents": 3000,
+      "quantity": 1,
+      "unit": "kg",
+      "currency": "MXN",
+      "observed_on": "2026-10-20",
+      "confirmed": true,
+      "source_id": "src-prices-2026-10",
+      "page": 1
+    },
+    {
+      "id": "o-oct-latest",
+      "tianguis_id": "t-centro",
+      "business_id": "b-shared",
+      "participation_id": "p-shared-centro",
+      "article_id": "jitomate",
+      "article_name": "Jitomate",
+      "category": "verduras",
+      "variant": "saladette",
+      "price_cents": 3400,
+      "quantity": 1,
+      "unit": "kg",
+      "currency": "MXN",
+      "observed_on": "2026-10-25",
+      "confirmed": true,
+      "source_id": "src-prices-2026-10",
+      "page": 2
+    },
+    {
+      "id": "o-oct-halfkg",
+      "tianguis_id": "t-centro",
+      "business_id": "b-verdura-centro",
+      "participation_id": "p-verdura-centro",
+      "article_id": "jitomate",
+      "article_name": "Jitomate",
+      "category": "verduras",
+      "variant": "saladette",
+      "price_cents": 2100,
+      "quantity": 500,
+      "unit": "g",
+      "currency": "MXN",
+      "observed_on": "2026-10-24",
+      "confirmed": true,
+      "source_id": "src-prices-2026-10",
+      "page": 3
+    },
+    {
+      "id": "o-oct-oriente1",
+      "tianguis_id": "t-oriente",
+      "business_id": "b-shared",
+      "participation_id": "p-shared-oriente",
+      "article_id": "jitomate",
+      "article_name": "Jitomate",
+      "category": "verduras",
+      "variant": "saladette",
+      "price_cents": 2800,
+      "quantity": 1,
+      "unit": "kg",
+      "currency": "MXN",
+      "observed_on": "2026-10-24",
+      "confirmed": true,
+      "source_id": "src-prices-2026-10",
+      "page": 4
+    },
+    {
+      "id": "o-oct-oriente2",
+      "tianguis_id": "t-oriente",
+      "business_id": "b-verdura-oriente",
+      "participation_id": "p-verdura-oriente",
+      "article_id": "jitomate",
+      "article_name": "Jitomate",
+      "category": "verduras",
+      "variant": "saladette",
+      "price_cents": 3000,
+      "quantity": "1000",
+      "unit": "g",
+      "currency": "MXN",
+      "observed_on": "2026-10-24",
+      "confirmed": true,
+      "source_id": "src-prices-2026-10",
+      "page": 5
+    },
+    {
+      "id": "o-oct-unknown",
+      "tianguis_id": "t-parque",
+      "business_id": "b-abarrotes",
+      "participation_id": "p-abarrotes",
+      "article_id": "jitomate",
+      "article_name": "Jitomate",
+      "category": "verduras",
+      "variant": "saladette",
+      "price_cents": null,
+      "quantity": 1,
+      "unit": "kg",
+      "currency": "MXN",
+      "observed_on": "2026-10-24",
+      "confirmed": true,
+      "source_id": "src-prices-2026-10",
+      "page": 6
+    },
+    {
+      "id": "o-oct-cherry",
+      "tianguis_id": "t-centro",
+      "business_id": "b-shared",
+      "participation_id": "p-shared-centro",
+      "article_id": "jitomate",
+      "article_name": "Jitomate",
+      "category": "verduras",
+      "variant": "cherry",
+      "price_cents": 6000,
+      "quantity": 1,
+      "unit": "kg",
+      "currency": "MXN",
+      "observed_on": "2026-10-24",
+      "confirmed": true,
+      "source_id": "src-prices-2026-10",
+      "page": 7
+    },
+    {
+      "id": "o-oct-cebolla1",
+      "tianguis_id": "t-centro",
+      "business_id": "b-shared",
+      "participation_id": "p-shared-centro",
+      "article_id": "cebolla",
+      "article_name": "Cebolla",
+      "category": "verduras",
+      "variant": "blanca",
+      "price_cents": 2200,
+      "quantity": 1,
+      "unit": "kg",
+      "currency": "MXN",
+      "observed_on": "2026-10-24",
+      "confirmed": true,
+      "source_id": "src-prices-2026-10",
+      "page": 8
+    },
+    {
+      "id": "o-oct-cebolla2",
+      "tianguis_id": "t-oriente",
+      "business_id": "b-shared",
+      "participation_id": "p-shared-oriente",
+      "article_id": "cebolla",
+      "article_name": "Cebolla",
+      "category": "verduras",
+      "variant": "blanca",
+      "price_cents": 1800,
+      "quantity": 1,
+      "unit": "kg",
+      "currency": "MXN",
+      "observed_on": "2026-10-24",
+      "confirmed": true,
+      "source_id": "src-prices-2026-10",
+      "page": 9
+    },
+    {
+      "id": "o-oct-oil1",
+      "tianguis_id": "t-parque",
+      "business_id": "b-abarrotes",
+      "participation_id": "p-abarrotes",
+      "article_id": "aceite",
+      "article_name": "Aceite",
+      "category": "abarrotes",
+      "variant": "vegetal",
+      "price_cents": 4200,
+      "quantity": 1,
+      "unit": "L",
+      "currency": "MXN",
+      "observed_on": "2026-10-24",
+      "confirmed": true,
+      "source_id": "src-prices-2026-10",
+      "page": 10
+    },
+    {
+      "id": "o-oct-oil2",
+      "tianguis_id": "t-centro",
+      "business_id": "b-cocina-centro",
+      "participation_id": "p-cocina-centro",
+      "article_id": "aceite",
+      "article_name": "Aceite",
+      "category": "abarrotes",
+      "variant": "vegetal",
+      "price_cents": 1400,
+      "quantity": 250,
+      "unit": "ml",
+      "currency": "MXN",
+      "observed_on": "2026-10-24",
+      "confirmed": true,
+      "source_id": "src-prices-2026-10",
+      "page": 11
+    },
+    {
+      "id": "o-oct-tortilla-piece",
+      "tianguis_id": "t-centro",
+      "business_id": "b-cocina-centro",
+      "participation_id": "p-cocina-centro",
+      "article_id": "tortilla",
+      "article_name": "Tortilla",
+      "category": "abarrotes",
+      "variant": "maiz",
+      "price_cents": 200,
+      "quantity": 1,
+      "unit": "pieza",
+      "currency": "MXN",
+      "observed_on": "2026-10-24",
+      "confirmed": true,
+      "source_id": "src-prices-2026-10",
+      "page": 12
+    },
+    {
+      "id": "o-oct-tortilla-kg",
+      "tianguis_id": "t-parque",
+      "business_id": "b-abarrotes",
+      "participation_id": "p-abarrotes",
+      "article_id": "tortilla",
+      "article_name": "Tortilla",
+      "category": "abarrotes",
+      "variant": "maiz",
+      "price_cents": 2400,
+      "quantity": 1,
+      "unit": "kg",
+      "currency": "MXN",
+      "observed_on": "2026-10-24",
+      "confirmed": true,
+      "source_id": "src-prices-2026-10",
+      "page": 13
+    },
+    {
+      "id": "o-oct-future",
+      "tianguis_id": "t-centro",
+      "business_id": "b-shared",
+      "participation_id": "p-shared-centro",
+      "article_id": "jitomate",
+      "article_name": "Jitomate",
+      "category": "verduras",
+      "variant": "saladette",
+      "price_cents": 8000,
+      "quantity": 1,
+      "unit": "kg",
+      "currency": "MXN",
+      "observed_on": "2026-10-26",
+      "confirmed": true,
+      "source_id": "src-prices-2026-10",
+      "page": 14
+    },
+    {
+      "id": "o-oct-unconfirmed",
+      "tianguis_id": "t-oriente",
+      "business_id": "b-shared",
+      "participation_id": "p-shared-oriente",
+      "article_id": "jitomate",
+      "article_name": "Jitomate",
+      "category": "verduras",
+      "variant": "saladette",
+      "price_cents": 9999,
+      "quantity": 1,
+      "unit": "kg",
+      "currency": "MXN",
+      "observed_on": "2026-10-25",
+      "confirmed": false,
+      "source_id": "src-prices-2026-10",
+      "page": 15
+    },
+    {
+      "id": "o-sep-centro1",
+      "tianguis_id": "t-centro",
+      "business_id": "b-shared",
+      "participation_id": "p-shared-centro",
+      "article_id": "jitomate",
+      "article_name": "Jitomate",
+      "category": "verduras",
+      "variant": "saladette",
+      "price_cents": 2500,
+      "quantity": 1,
+      "unit": "kg",
+      "currency": "MXN",
+      "observed_on": "2026-09-25",
+      "confirmed": true,
+      "source_id": "src-prices-2026-09",
+      "page": 1
+    },
+    {
+      "id": "o-sep-centro2",
+      "tianguis_id": "t-centro",
+      "business_id": "b-verdura-centro",
+      "participation_id": "p-verdura-centro",
+      "article_id": "jitomate",
+      "article_name": "Jitomate",
+      "category": "verduras",
+      "variant": "saladette",
+      "price_cents": 1400,
+      "quantity": 500,
+      "unit": "g",
+      "currency": "MXN",
+      "observed_on": "2026-09-25",
+      "confirmed": true,
+      "source_id": "src-prices-2026-09",
+      "page": 2
+    },
+    {
+      "id": "o-sep-oriente1",
+      "tianguis_id": "t-oriente",
+      "business_id": "b-shared",
+      "participation_id": "p-shared-oriente",
+      "article_id": "jitomate",
+      "article_name": "Jitomate",
+      "category": "verduras",
+      "variant": "saladette",
+      "price_cents": 2400,
+      "quantity": 1,
+      "unit": "kg",
+      "currency": "MXN",
+      "observed_on": "2026-09-25",
+      "confirmed": true,
+      "source_id": "src-prices-2026-09",
+      "page": 3
+    },
+    {
+      "id": "o-sep-oriente2",
+      "tianguis_id": "t-oriente",
+      "business_id": "b-verdura-oriente",
+      "participation_id": "p-verdura-oriente",
+      "article_id": "jitomate",
+      "article_name": "Jitomate",
+      "category": "verduras",
+      "variant": "saladette",
+      "price_cents": 2600,
+      "quantity": 1,
+      "unit": "kg",
+      "currency": "MXN",
+      "observed_on": "2026-09-25",
+      "confirmed": true,
+      "source_id": "src-prices-2026-09",
+      "page": 4
+    },
+    {
+      "id": "o-sep-oil",
+      "tianguis_id": "t-parque",
+      "business_id": "b-abarrotes",
+      "participation_id": "p-abarrotes",
+      "article_id": "aceite",
+      "article_name": "Aceite",
+      "category": "abarrotes",
+      "variant": "vegetal",
+      "price_cents": 4000,
+      "quantity": 1,
+      "unit": "L",
+      "currency": "MXN",
+      "observed_on": "2026-09-25",
+      "confirmed": true,
+      "source_id": "src-prices-2026-09",
+      "page": 5
+    }
+  ]
+}
