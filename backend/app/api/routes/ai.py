@@ -139,8 +139,11 @@ def select_public_offers(rows: list[dict], query: str, budget_cents: Optional[in
 
 @router.get("/status")
 async def status():
+    from app.services.chat_service import provider_enabled
     return {"status": "ok", "extraction_mode": "mock", "recommendation_mode": "rules",
-            "provider_requests": False, "administrative_analytics_connected": False}
+            "provider_requests": provider_enabled(), "chat_mode": "claude" if provider_enabled() else "local",
+            "chat_connected": True, "administrative_chat_connected": True,
+            "administrative_analytics_connected": False}
 
 
 @router.post("/recommend")

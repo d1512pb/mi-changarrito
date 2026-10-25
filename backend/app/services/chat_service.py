@@ -168,6 +168,8 @@ class ChatService:
                 action = plan.get("action")
                 if action not in ("overview", "prices", "composition", "coverage", "map", "managers", "attendance", "reports", "unsupported"):
                     raise ValueError("Unsupported action")
+                if plan.get("period") not in (None, metadata["snapshot_period"]) or plan.get("date"):
+                    warnings.append("El MVP sólo tiene el corte actual; no hay una serie histórica validada para ese periodo.")
                 mode = "claude"
             except Exception:
                 mode = "local_fallback"
@@ -178,6 +180,8 @@ class ChatService:
         catalog = [row for row in catalog if row.get("tianguis_id") in selected_markets]
         states = Counter(row["estado"] for row in offers)
         answer = f"En tu alcance hay {len(markets)} tianguis, {len(stalls)} puestos registrados y {len(offers)} ofertas: {states['publicada']} publicadas y vigentes, {states['borrador']} en borrador, {states['agotada']} agotadas, {states['vencida']} vencidas y {states['suspendida']} suspendidas."
+        if any(word in text for word in ("ventas", "vendimos", "ingresos", "ganancia")):
+            action = "unsupported"
         if action in ("attendance", "reports", "unsupported"):
             answer = "Este MVP todavía no tiene registros de asistencia, reportes mensuales ni ventas. No puedo inventar esas cifras ni realizar cambios desde el chat. " + answer
         elif action == "prices":
@@ -188,6 +192,14 @@ class ChatService:
                      for (product, unit), prices in list(groups.items())[:12]]
             answer = "\n".join(lines) if lines else "No hay precios publicados y vigentes en los tianguis de tu alcance."
             warnings.append("Se comparan nombres y unidades declaradas; las variantes comerciales todavía no están normalizadas.")
+        elif action == "managers":
+            managers = [person for person in await self.db.user.find(rol="gerente")
+                        if set(person.get("tianguis_ids") or []) & selected_markets]
+            answer = f"Hay {len(managers)} gerentes asignados a los {len(markets)} tianguis consultados. " + answer
+        elif action == "map":
+            answer = "\n".join(f"{market['nombre']}: {(market.get('ubicacion') or {}).get('direccion') or 'sin dirección declarada'}" for market in markets) or "No hay tianguis asignados con ubicaciones registradas."
+        elif action == "composition":
+            warnings.append("Todavía no hay categorías estructuradas suficientes para calcular una composición por giro.")
         return {"mode": mode, "answer": answer, "recommendations": catalog[:3] if action == "prices" else [],
                 "warnings": warnings, "scope": "assigned_markets" if self.actor["rol"] == "gerente" else "all_markets",
                 "data": {"tianguis": len(markets), "puestos": len(stalls), "ofertas": len(offers), "estados": dict(states)}}
