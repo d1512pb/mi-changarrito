@@ -1,13 +1,38 @@
 # Entrega de IA y ciencia de datos
 
-Estado inicial: área preparada; extracción y evaluación sin implementar.
+Rama: `IA`. Entrega: cliente Claude, recomendador con presupuesto y puente local para backend. El commit se identifica en el historial de esta rama.
 
-Antes del corte del 25/10/2026 a las 11:15 CDMX, sustituir este estado por:
+## Implementado y verificado
 
-- Rama y commit candidato.
-- Adaptador entregado y forma exacta de invocarlo desde backend.
-- Entradas y salidas comprobadas contra el contrato.
-- Dependencias, variables requeridas y límites de entrada/salida, sin valores secretos.
-- Disponibilidad de `live` y `mock`, y comportamiento ante fallos.
-- Ejemplos evaluados, errores y mediciones reales obtenidas.
-- Commits esenciales, ampliaciones y limitaciones.
+- Cliente HTTP con endpoint oficial fijo, sin redirecciones, reintentos ni fallback de modelo.
+- Configuración local ignorada por Git; las claves no aparecen en salidas ni errores.
+- Consulta de acceso al modelo y una generación real con `claude-haiku-5-5`, máximo 32 tokens, pensamiento desactivado y esfuerzo bajo.
+- Resultado real: marcador esperado recibido; 16 tokens de entrada, 4 de salida y 981 ms de latencia de generación. Costo de tokens estimado: US$0.0000036. Ver `evaluation/smoke_result.json`.
+- Datos sintéticos para el escenario «tengo $100 y quiero comer».
+- Plan de cuatro roles y propuesta de interfaz con backend.
+- Recomendador en Haiku high con pensamiento adaptativo y JSON estructurado; máximo 2048 tokens por generación.
+- Validación determinista de precio, presupuesto, visibilidad, estado, confirmación, vigencia, participación y jornada del tianguis.
+- Mismo negocio en varios tianguis: días y precios independientes, calendario ISO en horario de CDMX y jornadas nocturnas de hasta 24 horas.
+- Prueba real del recomendador: alternativas de $65 y $85; 1117 tokens de entrada, 153 de salida, 3200 ms y US$0.0001882 estimados. Ver `evaluation/recommendation_live.json`.
+- Servicio HTTP local comprobado en modo mock, sin consumir API.
+- 31 pruebas automatizadas pasadas, sin consumir API: permisos públicos, pertenencia, días/jornadas, límites de fecha, presupuesto, IDs inventados, salida malformada y actualización.
+- Secuencia con Claude real: comida de $65 y tacos de $85 → agotamiento de $65 → tacos de $85 → agotamiento de opciones factibles → `no_match` sin otra llamada. Dos generaciones, US$0.0002742 estimados. Ver `evaluation/dynamic_live.json`.
+
+## Cómo ejecutar
+
+- Python 3.10+ y datos de zona horaria de CDMX (`tzdata` si el entorno no los incluye).
+- Configurar `ia/.env` con la clave y, si la clave lo requiere, el ID de workspace. No compartir este archivo.
+- Sin API: `python -m unittest discover -s ia/tests -v` y `python ia/smoke_test.py --dry-run`.
+- Prueba real y con consumo: `python ia/smoke_test.py`.
+- Recomendación sin API: `python ia/recommend_demo.py`; con consumo: añadir `--live`.
+- Backend local: `python ia/api.py --mode mock` o `--mode live`; `POST http://127.0.0.1:8001/recommend`.
+- Backend Python también puede importar `from ia import recommend`.
+- Demostración de actualización: `python ia/dynamic_demo.py` sin API, o añadir `--live` para hasta dos generaciones. Siempre usa copia de datos sintéticos.
+
+## Siguiente etapa
+
+Conectar con el catálogo real y acordar el DTO con backend. Extracción de fotos, voz y agentes autónomos aún no están implementados. El servicio actual es local; no se ha desplegado ni conectado con frontend o con otra computadora. Las escrituras de la demostración ocurren sólo sobre una copia sintética en memoria.
+
+## Límite de la comprobación
+
+Las pruebas y la llamada con datos sintéticos verifican los casos descritos; no demuestran utilidad general, ventas o un 5×. Los costos son estimaciones con tarifas documentales y tokens observados, no una lectura del saldo.

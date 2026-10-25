@@ -1,0 +1,202 @@
+{
+  "is_demo": true,
+  "description": "Datos sinteticos para pruebas internas; no representan negocios reales.",
+  "tianguis_id": "demo-tianguis-001",
+  "as_of": "2026-10-25T10:30:00-06:00",
+  "query": "Tengo 100 pesos y quiero comer, recomiendame algo",
+  "budget_cents": 10000,
+  "offers": [
+    {
+      "id": "demo-comida-65",
+      "business_id": "demo-puesto-01",
+      "tianguis_id": "demo-tianguis-001",
+      "name": "Comida corrida",
+      "category": "comida",
+      "price_cents": 6500,
+      "currency": "MXN",
+      "unit": "comida",
+      "status": "published",
+      "confirmed_at": "2026-10-25T10:00:00-06:00",
+      "valid_until": "2026-10-25T18:00:00-06:00",
+      "is_demo": true,
+      "visibility": "public",
+      "business_active": true,
+      "participation": {
+        "id": "demo-participacion-1",
+        "business_id": "demo-puesto-01",
+        "tianguis_id": "demo-tianguis-001",
+        "status": "approved",
+        "weekdays": [
+          7
+        ],
+        "location_label": "Tianguis de domingo, pasillo A, puesto 1"
+      },
+      "session": {
+        "id": "demo-jornada-domingo-2026-10-25",
+        "tianguis_id": "demo-tianguis-001",
+        "starts_at": "2026-10-25T08:00:00-06:00",
+        "ends_at": "2026-10-25T18:00:00-06:00"
+      }
+    },
+    {
+      "id": "demo-comida-85",
+      "business_id": "demo-puesto-02",
+      "tianguis_id": "demo-tianguis-001",
+      "name": "Orden de tacos",
+      "category": "comida",
+      "price_cents": 8500,
+      "currency": "MXN",
+      "unit": "orden",
+      "status": "published",
+      "confirmed_at": "2026-10-25T10:00:00-06:00",
+      "valid_until": "2026-10-25T18:00:00-06:00",
+      "is_demo": true,
+      "visibility": "public",
+      "business_active": true,
+      "participation": {
+        "id": "demo-participacion-2",
+        "business_id": "demo-puesto-02",
+        "tianguis_id": "demo-tianguis-001",
+        "status": "approved",
+        "weekdays": [
+          7
+        ],
+        "location_label": "Tianguis de domingo, pasillo A, puesto 2"
+      },
+      "session": {
+        "id": "demo-jornada-domingo-2026-10-25",
+        "tianguis_id": "demo-tianguis-001",
+        "starts_at": "2026-10-25T08:00:00-06:00",
+        "ends_at": "2026-10-25T18:00:00-06:00"
+      }
+    },
+    {
+      "id": "demo-comida-120",
+      "business_id": "demo-puesto-03",
+      "tianguis_id": "demo-tianguis-001",
+      "name": "Parrillada",
+      "category": "comida",
+      "price_cents": 12000,
+      "currency": "MXN",
+      "unit": "plato",
+      "status": "published",
+      "confirmed_at": "2026-10-25T10:00:00-06:00",
+      "valid_until": "2026-10-25T18:00:00-06:00",
+      "is_demo": true,
+      "visibility": "public",
+      "business_active": true,
+      "participation": {
+        "id": "demo-participacion-3",
+        "business_id": "demo-puesto-03",
+        "tianguis_id": "demo-tianguis-001",
+        "status": "approved",
+        "weekdays": [
+          7
+        ],
+        "location_label": "Tianguis de domingo, pasillo A, puesto 3"
+      },
+      "session": {
+        "id": "demo-jornada-domingo-2026-10-25",
+        "tianguis_id": "demo-tianguis-001",
+        "starts_at": "2026-10-25T08:00:00-06:00",
+        "ends_at": "2026-10-25T18:00:00-06:00"
+      }
+    },
+    {
+      "id": "demo-agotada-50",
+      "business_id": "demo-puesto-04",
+      "tianguis_id": "demo-tianguis-001",
+      "name": "Torta",
+      "category": "comida",
+      "price_cents": 5000,
+      "currency": "MXN",
+      "unit": "pieza",
+      "status": "sold_out",
+      "confirmed_at": "2026-10-25T10:00:00-06:00",
+      "valid_until": "2026-10-25T18:00:00-06:00",
+      "is_demo": true,
+      "visibility": "public",
+      "business_active": true,
+      "participation": {
+        "id": "demo-participacion-4",
+        "business_id": "demo-puesto-04",
+        "tianguis_id": "demo-tianguis-001",
+        "status": "approved",
+        "weekdays": [
+          7
+        ],
+        "location_label": "Tianguis de domingo, pasillo A, puesto 4"
+      },
+      "session": {
+        "id": "demo-jornada-domingo-2026-10-25",
+        "tianguis_id": "demo-tianguis-001",
+        "starts_at": "2026-10-25T08:00:00-06:00",
+        "ends_at": "2026-10-25T18:00:00-06:00"
+      }
+    },
+    {
+      "id": "demo-vencida-40",
+      "business_id": "demo-puesto-05",
+      "tianguis_id": "demo-tianguis-001",
+      "name": "Desayuno",
+      "category": "comida",
+      "price_cents": 4000,
+      "currency": "MXN",
+      "unit": "desayuno",
+      "status": "published",
+      "confirmed_at": "2026-10-25T08:00:00-06:00",
+      "valid_until": "2026-10-25T09:00:00-06:00",
+      "is_demo": true,
+      "visibility": "public",
+      "business_active": true,
+      "participation": {
+        "id": "demo-participacion-5",
+        "business_id": "demo-puesto-05",
+        "tianguis_id": "demo-tianguis-001",
+        "status": "approved",
+        "weekdays": [
+          7
+        ],
+        "location_label": "Tianguis de domingo, pasillo A, puesto 5"
+      },
+      "session": {
+        "id": "demo-jornada-domingo-2026-10-25",
+        "tianguis_id": "demo-tianguis-001",
+        "starts_at": "2026-10-25T08:00:00-06:00",
+        "ends_at": "2026-10-25T18:00:00-06:00"
+      }
+    },
+    {
+      "id": "demo-misma-cocina-otro-tianguis",
+      "business_id": "demo-puesto-01",
+      "tianguis_id": "demo-tianguis-002",
+      "name": "Comida corrida",
+      "category": "comida",
+      "price_cents": 8500,
+      "currency": "MXN",
+      "unit": "comida",
+      "status": "published",
+      "confirmed_at": "2026-10-26T09:00:00-06:00",
+      "valid_until": "2026-10-26T18:00:00-06:00",
+      "is_demo": true,
+      "visibility": "public",
+      "business_active": true,
+      "participation": {
+        "id": "demo-misma-cocina-participacion-lunes",
+        "business_id": "demo-puesto-01",
+        "tianguis_id": "demo-tianguis-002",
+        "status": "approved",
+        "weekdays": [
+          1
+        ],
+        "location_label": "Tianguis de lunes, pasillo B, puesto 9"
+      },
+      "session": {
+        "id": "demo-jornada-lunes-2026-10-26",
+        "tianguis_id": "demo-tianguis-002",
+        "starts_at": "2026-10-26T08:00:00-06:00",
+        "ends_at": "2026-10-26T18:00:00-06:00"
+      }
+    }
+  ]
+}

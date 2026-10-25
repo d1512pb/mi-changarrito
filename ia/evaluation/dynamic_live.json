@@ -1,0 +1,150 @@
+{
+  "scenario": "synthetic_catalog_update",
+  "is_demo": true,
+  "mode": "live",
+  "application_data_modified": false,
+  "stages": [
+    {
+      "stage": "initial",
+      "changed_offer_ids": [],
+      "result": {
+        "schema_version": "recommendation-1.0",
+        "mode": "live",
+        "tianguis_id": "demo-tianguis-001",
+        "catalog_as_of": "2026-10-25T10:30:00-06:00",
+        "budget_cents": 10000,
+        "currency": "MXN",
+        "status": "ok",
+        "recommendations": [
+          {
+            "offer_id": "demo-comida-65",
+            "business_id": "demo-puesto-01",
+            "participation_id": "demo-participacion-1",
+            "session_id": "demo-jornada-domingo-2026-10-25",
+            "tianguis_id": "demo-tianguis-001",
+            "name": "Comida corrida",
+            "category": "comida",
+            "price_cents": 6500,
+            "currency": "MXN",
+            "unit": "comida",
+            "location_label": "Tianguis de domingo, pasillo A, puesto 1",
+            "confirmed_at": "2026-10-25T10:00:00-06:00",
+            "valid_until": "2026-10-25T18:00:00-06:00",
+            "is_demo": true,
+            "quantity": 1,
+            "total_cents": 6500,
+            "remaining_cents": 3500,
+            "explanation": "Una unidad cuesta $65.00; te quedan $35.00."
+          },
+          {
+            "offer_id": "demo-comida-85",
+            "business_id": "demo-puesto-02",
+            "participation_id": "demo-participacion-2",
+            "session_id": "demo-jornada-domingo-2026-10-25",
+            "tianguis_id": "demo-tianguis-001",
+            "name": "Orden de tacos",
+            "category": "comida",
+            "price_cents": 8500,
+            "currency": "MXN",
+            "unit": "orden",
+            "location_label": "Tianguis de domingo, pasillo A, puesto 2",
+            "confirmed_at": "2026-10-25T10:00:00-06:00",
+            "valid_until": "2026-10-25T18:00:00-06:00",
+            "is_demo": true,
+            "quantity": 1,
+            "total_cents": 8500,
+            "remaining_cents": 1500,
+            "explanation": "Una unidad cuesta $85.00; te quedan $15.00."
+          }
+        ],
+        "message": "Estas son alternativas independientes; sus precios no se suman entre sí.",
+        "warnings": [
+          "Contiene datos sintéticos de demostración."
+        ],
+        "metrics": {
+          "generation_requests": 1,
+          "model": "claude-haiku-5-5",
+          "effort": "high",
+          "latency_ms": 2030,
+          "input_tokens": 1117,
+          "output_tokens": 44,
+          "estimated_token_cost_usd": 0.0001337
+        }
+      }
+    },
+    {
+      "stage": "first_offer_sold_out",
+      "changed_offer_ids": [
+        "demo-comida-65"
+      ],
+      "result": {
+        "schema_version": "recommendation-1.0",
+        "mode": "live",
+        "tianguis_id": "demo-tianguis-001",
+        "catalog_as_of": "2026-10-25T10:30:00-06:00",
+        "budget_cents": 10000,
+        "currency": "MXN",
+        "status": "ok",
+        "recommendations": [
+          {
+            "offer_id": "demo-comida-85",
+            "business_id": "demo-puesto-02",
+            "participation_id": "demo-participacion-2",
+            "session_id": "demo-jornada-domingo-2026-10-25",
+            "tianguis_id": "demo-tianguis-001",
+            "name": "Orden de tacos",
+            "category": "comida",
+            "price_cents": 8500,
+            "currency": "MXN",
+            "unit": "orden",
+            "location_label": "Tianguis de domingo, pasillo A, puesto 2",
+            "confirmed_at": "2026-10-25T10:00:00-06:00",
+            "valid_until": "2026-10-25T18:00:00-06:00",
+            "is_demo": true,
+            "quantity": 1,
+            "total_cents": 8500,
+            "remaining_cents": 1500,
+            "explanation": "Una unidad cuesta $85.00; te quedan $15.00."
+          }
+        ],
+        "message": "Estas son alternativas independientes; sus precios no se suman entre sí.",
+        "warnings": [
+          "Contiene datos sintéticos de demostración."
+        ],
+        "metrics": {
+          "generation_requests": 1,
+          "model": "claude-haiku-5-5",
+          "effort": "high",
+          "latency_ms": 4099,
+          "input_tokens": 895,
+          "output_tokens": 102,
+          "estimated_token_cost_usd": 0.0001405
+        }
+      }
+    },
+    {
+      "stage": "all_affordable_offers_sold_out",
+      "changed_offer_ids": [
+        "demo-comida-85",
+        "demo-vencida-40"
+      ],
+      "result": {
+        "schema_version": "recommendation-1.0",
+        "mode": "live",
+        "tianguis_id": "demo-tianguis-001",
+        "catalog_as_of": "2026-10-25T10:30:00-06:00",
+        "budget_cents": 10000,
+        "currency": "MXN",
+        "status": "no_match",
+        "recommendations": [],
+        "message": "No encontré ofertas públicas vigentes dentro de ese presupuesto en este tianguis.",
+        "warnings": [],
+        "metrics": {
+          "generation_requests": 0
+        }
+      }
+    }
+  ],
+  "generation_requests": 2,
+  "estimated_token_cost_usd": 0.0002742
+}
