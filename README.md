@@ -4,7 +4,7 @@
 
 Aplicación integrada para el reto de comercio popular y barrial del Chilangatón 2026, CDMX. Un comerciante captura texto o una foto, revisa un borrador y confirma su publicación con vigencia. Los vecinos consultan ofertas disponibles; una oferta agotada o vencida sale de la búsqueda.
 
-El frontend, backend e integración de IA ya comparten una aplicación. La configuración del primer despliegue en Railway está preparada; su publicación y verificación cloud todavía están pendientes. No se ha confirmado `SUCCESS` de esta versión.
+El frontend, backend e integración de IA comparten una aplicación [publicada en Railway](https://back-production-f63c.up.railway.app). El primer despliegue está en `SUCCESS` y fue verificado el 25/10/2026, incluida la persistencia de sesión, borrador y foto tras reiniciar la aplicación. Consulta el [registro de verificación](docs/primer-despliegue-verificado.md).
 
 ## Aplicación actual
 
@@ -34,7 +34,7 @@ La sesión del navegador se guarda por pestaña, sin tokens en URLs. Capturar cr
 
 ## Verificación realizada
 
-Pasaron 24 pruebas de backend, 89 de IA y 12 del cliente/service worker, sin consumo de proveedores. También se comprobó el recorrido de interfaz con Edge y fixtures aisladas, incluido móvil sin desbordamiento, y un smoke HTTP contra el backend real local. Las pruebas del despliegue cloud y de persistencia tras reiniciar el servicio publicado siguen pendientes.
+Pasaron 24 pruebas de backend, 89 de IA y 12 del cliente/service worker, sin consumo de proveedores. También se comprobó la interfaz real publicada con Edge en escritorio y móvil, sin errores ni desbordamiento. El smoke HTTP pasó contra backend local y contra producción; en Railway verificó PostgreSQL/S3 y persistencia tras reiniciar la aplicación.
 
 ```sh
 cd backend

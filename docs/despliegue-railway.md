@@ -1,6 +1,6 @@
 # Primer despliegue en Railway
 
-Código integrado y configuración preparados. La publicación y las pruebas cloud de esta versión siguen pendientes; todavía no se ha confirmado un deployment `SUCCESS`.
+Primera versión publicada y verificada el 25/10/2026. Deployment `e495809c-4060-45b6-89df-778253cc858d` en `SUCCESS`, desde `main` en `a1b312f8a74b62c12401bb1db03de243be87f5a0`. La aplicación usa PostgreSQL y S3 y conservó sesión, borrador y foto tras un reinicio. Ver [evidencia de verificación](primer-despliegue-verificado.md).
 
 ## Recursos y construcción
 
@@ -9,7 +9,7 @@ Código integrado y configuración preparados. La publicación y las pruebas clo
 - Servicio de aplicación `back`: `30a1bc07-6b48-46f1-a990-4a827accea51`.
 - PostgreSQL: `4635cb06-ea3d-4a61-8906-be59400e57f8`.
 - Bucket de imágenes: `f8a97ae3-1396-491c-a8ec-db60e129da5b`.
-- Dominio asignado: [back-production-f63c.up.railway.app](https://back-production-f63c.up.railway.app). Su existencia no confirma que esta versión esté publicada.
+- Aplicación publicada: [back-production-f63c.up.railway.app](https://back-production-f63c.up.railway.app), con página, assets y API comprobados.
 
 Configuración comprobada en Railway: raíz `/`, constructor `DOCKERFILE`, archivo `Dockerfile`, una réplica y healthcheck `/api/health` con espera de 120 segundos. No se usa `railway.json`; estos ajustes se conservan en Railway.
 
@@ -56,7 +56,7 @@ Pasaron 24 pruebas backend, 89 de IA y 12 del cliente/service worker sin llamada
 
 También pasó un smoke HTTP contra backend real local. El script [deployment_smoke.py](../scripts/deployment_smoke.py) reproduce registro, permisos, sesiones, borrador, foto, publicación, búsqueda, recomendaciones, agotamiento y revocación de sesión. Crea registros marcados como sintéticos y al terminar agota su oferta para retirarla de la búsqueda; no representan comercios reales.
 
-## Verificar el despliegue cloud pendiente
+## Volver a verificar un despliegue cloud
 
 1. Publicar la revisión integrada y observar `SUCCESS` para su deployment concreto. Un upload o build iniciado no basta.
 2. Comprobar `/api/health`: `status=ok`, `database=postgresql`, `storage=s3`. Abrir `/` y comprobar los assets del frontend.

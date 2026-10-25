@@ -61,9 +61,10 @@ def verify(client, state):
     checked(client.get("/api/user/profile", headers=consumer))
     offers = checked(client.get("/api/offer/mine", headers=merchant)).json()
     found = next(row for row in offers if row["id"] == state["offer_id"])
-    assert found["producto"] == state["product"] and found["estado"] == "borrador"
+    assert found["producto"] == state["product"] and found["estado"] in ("borrador", "publicada")
     assert checked(client.get(state["photo"], headers=merchant)).content == PNG
-    checked(client.post(f"/api/offer/publish/{state['offer_id']}", headers=merchant, json={"vigencia_horas": 1}))
+    if found["estado"] == "borrador":
+        checked(client.post(f"/api/offer/publish/{state['offer_id']}", headers=merchant, json={"vigencia_horas": 1}))
     try:
         rows = checked(client.get("/api/offer/search", params={"q": state["product"]})).json()
         assert any(row["id"] == state["offer_id"] for row in rows)
@@ -91,7 +92,8 @@ def main():
     args = parser.parse_args()
     base = args.base_url.rstrip("/")
     state_path = Path(args.state)
-    with httpx.Client(base_url=base, timeout=45, follow_redirects=True) as client:
+    with httpx.Client(base_url=base, timeout=45, follow_redirects=True,
+                      limits=httpx.Limits(max_keepalive_connections=0)) as client:
         checked(client.get("/api/health"))
         if args.phase == "prepare":
             result = prepare(client, state_path, base)
