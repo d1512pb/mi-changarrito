@@ -6,13 +6,13 @@ Responsable: Daniel. Rama actual: **`IA`**, por instrucción de Daniel. Corte: *
 
 El enfoque actualizado es exclusivamente tianguis, con cuatro roles: admin, gerente, changarrito y comprador. El gerente crea los perfiles de los changarritos. Consulta [el plan breve](PLAN.md) y [la propuesta de conexión con backend](INTEGRACION_BACKEND.md).
 
-La primera entrega implementa únicamente la prueba mínima de conexión a Claude. La recomendación de comida con presupuesto, la extracción y el flujo de varios agentes siguen como siguientes etapas por revisar.
+El plan fue aprobado por Daniel. Están implementados la conexión a Claude, el recomendador con presupuesto, la validación de jornadas y un servicio local para backend. Un changarrito conserva su identidad y puede participar en distintos tianguis según el día. La extracción de menús, voz y los agentes autónomos siguen como ampliaciones.
 
 Conexión real verificada el 25/10/2026: una generación respondió al marcador esperado, con 16 tokens de entrada y 4 de salida. [Resultado observado](evaluation/smoke_result.json). Las pruebas automatizadas usan respuestas simuladas y no consumen API.
 
 ## Prueba de Claude
 
-Python 3.10 o posterior; los scripts usan sólo la biblioteca estándar y no necesitan instalar paquetes.
+Python 3.10 o posterior. Los scripts usan la biblioteca estándar; el recomendador necesita datos de zona horaria `America/Mexico_City`. Si el entorno no los incluye, instalar `tzdata`.
 
 1. Copiar `.env.example` a `.env` dentro de `ia/` y completar `ANTHROPIC_API_KEY` localmente. El archivo está excluido de Git. No compartirlo ni pegar su contenido en el chat.
 2. Desde la raíz del repositorio, verificar sin red: `python ia/smoke_test.py --dry-run`.
@@ -23,11 +23,25 @@ La prueba verifica acceso a `claude-haiku-5-5` y hace una generación con máxim
 
 [Datos sintéticos del primer escenario](data/tianguis_demo.json): presupuesto de $100, opciones dentro y fuera del presupuesto, una agotada y una vencida. El contexto `as_of` fija el reloj de este ejemplo; no es información en vivo.
 
+## Recomendador y conexión a backend
+
+- Sin consumo: `python ia/recommend_demo.py`.
+- Una llamada real: `python ia/recommend_demo.py --live`.
+- Servicio local sin consumo: `python ia/api.py --mode mock`.
+- Servicio local con Claude: `python ia/api.py --mode live`.
+- Importación desde Python: `from ia import recommend`; llamar `recommend(payload, mode="mock")` o `mode="live"`.
+
+El servicio escucha en `127.0.0.1:8001`: `GET /health` y `POST /recommend`. Es un puente local para backend; no está publicado para otras computadoras ni en Internet. [Contrato y ejemplo de uso](INTEGRACION_BACKEND.md).
+
+Haiku usa **esfuerzo alto**, pensamiento adaptativo y salida JSON estructurada, con máximo 2048 tokens por generación. El catálogo se filtra antes de llamar al modelo y los IDs, importes y resultados se verifican después. Hay límites de entrada y cero reintentos o cambios automáticos de modelo. El esfuerzo alto no sustituye las validaciones.
+
+[Prueba real del recomendador](evaluation/recommendation_live.json): seleccionó alternativas de $65 y $85 para un presupuesto de $100. El mismo negocio tiene además otra participación de lunes en un tianguis diferente; las ofertas no se mezclan.
+
 ## Propiedad
 
 Todo el código, prompts, evaluación y análisis de esta área vive en `ia/`. Puedes elegir herramientas y modelos. Respeta el [contrato v1](../docs/contrato-v1.md); los cambios compartidos se coordinan con el líder.
 
-## Núcleo de IA
+## Siguiente ampliación: extracción
 
 1. Recibir ExtractionRequest por texto o imagen y devolver ExtractionResult validado.
 2. Extraer candidatos de producto, categoría, precio en centavos, unidad y horario, con evidencia cuando exista.

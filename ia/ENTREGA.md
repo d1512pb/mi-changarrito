@@ -1,6 +1,6 @@
 # Entrega de IA y ciencia de datos
 
-Rama: `IA`. Primera entrega: cliente mínimo de Claude y plan actualizado para tianguis. El commit se identifica en el historial de esta rama.
+Rama: `IA`. Entrega: cliente Claude, recomendador con presupuesto y puente local para backend. El commit se identifica en el historial de esta rama.
 
 ## Implementado y verificado
 
@@ -10,18 +10,26 @@ Rama: `IA`. Primera entrega: cliente mínimo de Claude y plan actualizado para t
 - Resultado real: marcador esperado recibido; 16 tokens de entrada, 4 de salida y 981 ms de latencia de generación. Costo de tokens estimado: US$0.0000036. Ver `evaluation/smoke_result.json`.
 - Datos sintéticos para el escenario «tengo $100 y quiero comer».
 - Plan de cuatro roles y propuesta de interfaz con backend.
+- Recomendador en Haiku high con pensamiento adaptativo y JSON estructurado; máximo 2048 tokens por generación.
+- Validación determinista de precio, presupuesto, visibilidad, estado, confirmación, vigencia, participación y jornada del tianguis.
+- Mismo negocio en varios tianguis: días y precios independientes, calendario ISO en horario de CDMX y jornadas nocturnas de hasta 24 horas.
+- Prueba real del recomendador: alternativas de $65 y $85; 1117 tokens de entrada, 153 de salida, 3200 ms y US$0.0001882 estimados. Ver `evaluation/recommendation_live.json`.
+- Servicio HTTP local comprobado en modo mock, sin consumir API.
 
 ## Cómo ejecutar
 
-- Python 3.10+; sólo biblioteca estándar.
+- Python 3.10+ y datos de zona horaria de CDMX (`tzdata` si el entorno no los incluye).
 - Configurar `ia/.env` con la clave y, si la clave lo requiere, el ID de workspace. No compartir este archivo.
 - Sin API: `python -m unittest discover -s ia/tests -v` y `python ia/smoke_test.py --dry-run`.
 - Prueba real y con consumo: `python ia/smoke_test.py`.
+- Recomendación sin API: `python ia/recommend_demo.py`; con consumo: añadir `--live`.
+- Backend local: `python ia/api.py --mode mock` o `--mode live`; `POST http://127.0.0.1:8001/recommend`.
+- Backend Python también puede importar `from ia import recommend`.
 
 ## Siguiente etapa
 
-Recomendador con presupuesto sobre ofertas públicas, verificación de referencias, estado y vigencia, y adaptación al formato de backend. La recomendación, extracción de fotos, voz y multiagentes aún no están implementados. `INTEGRACION_BACKEND.md` es una propuesta para coordinar, no un endpoint ya operativo.
+Comprobar agotamiento y recálculo en una secuencia de consultas, conectar con el catálogo real y acordar el DTO con backend. Extracción de fotos, voz y agentes autónomos aún no están implementados. El servicio actual es local; no se ha desplegado ni conectado con frontend o con otra computadora.
 
 ## Límite de la comprobación
 
-Una llamada verifica acceso y formato mínimo; no evalúa la calidad de recomendaciones. El costo es una estimación a partir de tarifas documentales y tokens observados, no una lectura del saldo.
+Las pruebas y la llamada con datos sintéticos verifican los casos descritos; no demuestran utilidad general, ventas o un 5×. Los costos son estimaciones con tarifas documentales y tokens observados, no una lectura del saldo.
