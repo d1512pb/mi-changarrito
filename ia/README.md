@@ -37,6 +37,14 @@ Haiku usa **esfuerzo alto**, pensamiento adaptativo y salida JSON estructurada, 
 
 [Prueba real del recomendador](evaluation/recommendation_live.json): seleccionó alternativas de $65 y $85 para un presupuesto de $100. El mismo negocio tiene además otra participación de lunes en un tianguis diferente; las ofertas no se mezclan.
 
+## Demostración de actualización
+
+`python ia/dynamic_demo.py` ejecuta tres etapas sin consumir API: ofertas iniciales, primera oferta agotada y ninguna alternativa dentro del presupuesto. Trabaja sobre una copia de datos sintéticos; no modifica la aplicación ni la base de backend.
+
+Añadir `--live` para consultar a Haiku high en las etapas con candidatos. La etapa sin opciones no llama al modelo. `--output` permite guardar el reporte; no incluir datos privados.
+
+[Secuencia real verificada con Claude](evaluation/dynamic_live.json): al agotar la comida de $65 quedó la alternativa de $85; al agotar las alternativas dentro del presupuesto respondió `no_match` sin una tercera llamada. Dos generaciones con costo total estimado de US$0.0002742. Las 31 pruebas automatizadas de esta entrega no consumen API.
+
 ## Propiedad
 
 Todo el código, prompts, evaluación y análisis de esta área vive en `ia/`. Puedes elegir herramientas y modelos. Respeta el [contrato v1](../docs/contrato-v1.md); los cambios compartidos se coordinan con el líder.

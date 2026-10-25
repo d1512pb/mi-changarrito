@@ -20,7 +20,7 @@ Un changarrito puede operar en varios tianguis según el día. Su identidad se m
 1. **Completado:** conexión real a Claude, sin reintentos ni fallback de modelo; tokens y latencia observados.
 2. **Completado con datos sintéticos:** «Tengo $100 y quiero comer». Referencias a ofertas existentes, presupuesto comprobado con reglas y Haiku en esfuerzo alto.
 3. **Puente local listo; conexión con aplicación pendiente:** backend envía consulta, tianguis, jornadas y ofertas públicas; IA devuelve una propuesta estructurada; backend revalida estado, vigencia y total antes de entregar a frontend.
-4. **Efecto visible:** al agotarse una oferta, la siguiente consulta propone otra opción o informa que no hay alternativa. Explicar precio y dinero restante con referencias a los datos.
+4. **Completado en simulación de catálogo con Claude real:** al agotarse una oferta, la siguiente consulta propone otra; al agotar las alternativas dentro del presupuesto responde sin coincidencias y sin llamar otra vez a IA. La simulación no modifica datos de la aplicación.
 5. **Evolución por evaluar:** voz, extracción de menús y un flujo con lector de intención, consulta de catálogo y verificador. Las tareas de escritura mantienen los permisos y confirmaciones que aplique backend.
 
 ## Control del consumo

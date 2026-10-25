@@ -15,6 +15,8 @@ Rama: `IA`. Entrega: cliente Claude, recomendador con presupuesto y puente local
 - Mismo negocio en varios tianguis: días y precios independientes, calendario ISO en horario de CDMX y jornadas nocturnas de hasta 24 horas.
 - Prueba real del recomendador: alternativas de $65 y $85; 1117 tokens de entrada, 153 de salida, 3200 ms y US$0.0001882 estimados. Ver `evaluation/recommendation_live.json`.
 - Servicio HTTP local comprobado en modo mock, sin consumir API.
+- 31 pruebas automatizadas pasadas, sin consumir API: permisos públicos, pertenencia, días/jornadas, límites de fecha, presupuesto, IDs inventados, salida malformada y actualización.
+- Secuencia con Claude real: comida de $65 y tacos de $85 → agotamiento de $65 → tacos de $85 → agotamiento de opciones factibles → `no_match` sin otra llamada. Dos generaciones, US$0.0002742 estimados. Ver `evaluation/dynamic_live.json`.
 
 ## Cómo ejecutar
 
@@ -25,10 +27,11 @@ Rama: `IA`. Entrega: cliente Claude, recomendador con presupuesto y puente local
 - Recomendación sin API: `python ia/recommend_demo.py`; con consumo: añadir `--live`.
 - Backend local: `python ia/api.py --mode mock` o `--mode live`; `POST http://127.0.0.1:8001/recommend`.
 - Backend Python también puede importar `from ia import recommend`.
+- Demostración de actualización: `python ia/dynamic_demo.py` sin API, o añadir `--live` para hasta dos generaciones. Siempre usa copia de datos sintéticos.
 
 ## Siguiente etapa
 
-Comprobar agotamiento y recálculo en una secuencia de consultas, conectar con el catálogo real y acordar el DTO con backend. Extracción de fotos, voz y agentes autónomos aún no están implementados. El servicio actual es local; no se ha desplegado ni conectado con frontend o con otra computadora.
+Conectar con el catálogo real y acordar el DTO con backend. Extracción de fotos, voz y agentes autónomos aún no están implementados. El servicio actual es local; no se ha desplegado ni conectado con frontend o con otra computadora. Las escrituras de la demostración ocurren sólo sobre una copia sintética en memoria.
 
 ## Límite de la comprobación
 
