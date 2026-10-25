@@ -1,0 +1,52 @@
+{
+  "description": "Datos sinteticos para desarrollar e integrar; no representan un comercio real ni una llamada real a IA.",
+  "business": {
+    "id": "demo-negocio-001",
+    "name": "Cocina de demostración",
+    "category": "comida",
+    "location": {"lat": 19.3467, "lng": -99.1617, "label": "Punto sintético de demostración en Coyoacán"},
+    "schedule_text": "Domingo de 08:00 a 18:00",
+    "is_demo": true
+  },
+  "offer": {
+    "id": "demo-oferta-001",
+    "business_id": "demo-negocio-001",
+    "name": "Comida corrida",
+    "category": "comida",
+    "price_cents": 9500,
+    "currency": "MXN",
+    "unit": "comida",
+    "schedule_text": "Domingo de 08:00 a 18:00",
+    "status": "published",
+    "confirmed_at": "2026-10-25T10:00:00-06:00",
+    "valid_until": "2026-10-25T18:00:00-06:00",
+    "is_demo": true
+  },
+  "extraction_request": {
+    "schema_version": "1.0",
+    "business_id": "demo-negocio-001",
+    "source": {"type": "text", "text": "Comida corrida $95 por comida. Domingo de 08:00 a 18:00."}
+  },
+  "extraction_result": {
+    "schema_version": "1.0",
+    "mode": "mock",
+    "requires_review": true,
+    "items": [{
+      "name": "Comida corrida",
+      "category": "comida",
+      "price_cents": 9500,
+      "currency": "MXN",
+      "unit": "comida",
+      "schedule_text": "Domingo de 08:00 a 18:00",
+      "field_evidence": {
+        "name": "Comida corrida",
+        "category": null,
+        "price_cents": "$95",
+        "unit": "por comida",
+        "schedule_text": "Domingo de 08:00 a 18:00"
+      },
+      "warnings": ["La categoría es una sugerencia que debe revisar el comerciante."]
+    }],
+    "warnings": ["Respuesta sintética de prueba; no fue generada por una llamada real a IA."]
+  }
+}

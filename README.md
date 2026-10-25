@@ -16,24 +16,33 @@ Mi Changarrito convierte una foto o texto de un comercio en una ficha que su res
 
 ## Estado
 
-Repositorio de arranque: propuesta y forma de colaboración documentadas. La aplicación todavía no está implementada. El alcance y las tecnologías están sujetos al acuerdo del equipo y a las indicaciones del evento.
+Repositorio dividido en tres áreas independientes, con responsabilidades, contrato y ejemplos compartidos. La aplicación todavía no está implementada. Cada responsable puede elegir sus herramientas respetando el contrato de integración.
 
 Repositorio privado en GitHub: [d1512pb/mi-changarrito](https://github.com/d1512pb/mi-changarrito). Para acceder, cada integrante debe aceptar su invitación de colaboración.
 
 ## Documentos de trabajo
 
+- [Centro de mando y corte de las 11:15](docs/centro-de-mando.md).
+- [Contrato mínimo de integración v1](docs/contrato-v1.md).
 - [Propuesta y alcance inicial](docs/propuesta.md).
 - [Decisiones confirmadas y pendientes](docs/decisiones.md).
 - [Trabajo por ramas e integración](CONTRIBUTING.md).
 - [Guía para agentes](AGENTS.md).
 
+## Áreas del equipo
+
+- [front/](front/README.md): pantallas, captura, revisión y búsqueda. Responsable: integrante de frontend.
+- [back/](back/README.md): API, catálogo, permisos, estados y persistencia. Responsable: integrante de backend.
+- [ia/](ia/README.md): extracción, IA, evaluación y ciencia de datos. Responsable: Daniel.
+- El cuarto integrante, líder y responsable del pitch, dirige el [centro de mando](docs/centro-de-mando.md) y coordina la integración.
+
 ## Organización de Git
 
 - `main`: entregas revisadas y demostrables.
-- `integracion`: punto de unión de los módulos; a cargo del integrador que designe el equipo.
-- `feat/<tarea>`, `fix/<tarea>`, `docs/<tarea>`: trabajo acotado de cada responsable.
+- `integracion`: punto de unión de los módulos, coordinado por el líder.
+- Próximas ramas: `feat/front`, `feat/back` y `feat/ia`, creadas desde el `main` que contiene esta organización. Aún no se crean en esta preparación.
 
-Cada agente debe usar su propio clon o worktree para trabajar simultáneamente en ramas distintas. La asignación de módulos y responsables está pendiente.
+Cada persona o agente trabaja en un clon o worktree propio. El corte es el **25 de octubre de 2026 a las 11:15, hora de Ciudad de México**. Cada área entrega commits separables; el líder selecciona lo esencial y conserva las ampliaciones en sus ramas si no entran.
 
 ## Fuentes de partida
 

@@ -1,14 +1,17 @@
-# Trabajo por ramas
+# Trabajo por áreas y ramas
+
+El líder, también responsable del pitch, es el centro de mando y coordina la integración. El corte es el **25/10/2026 a las 11:15, hora de Ciudad de México**.
 
 ## Ramas
 
 - `main`: base estable y entregas revisadas.
-- `integracion`: rama del responsable de unir módulos y verificar el recorrido completo.
-- `feat/<tarea>`: una función concreta.
+- `integracion`: rama coordinada por el líder para unir módulos y verificar el recorrido completo.
+- Próximas ramas de área: `feat/front`, `feat/back` y `feat/ia`.
+- `feat/<tarea>`: una función adicional concreta, si se necesita.
 - `fix/<tarea>`: una corrección concreta.
 - `docs/<tarea>`: documentación.
 
-Las ramas de tarea parten de `integracion`. Los nombres de módulos y sus responsables se acuerdan antes de iniciar trabajo paralelo.
+La preparación de las tres áreas se publica directamente en `main` por instrucción expresa de Daniel. Las ramas de área se crearán después desde esa base actualizada de `main`; no parten de la versión anterior de `integracion`.
 
 ## Un espacio de trabajo por agente
 
@@ -17,17 +20,21 @@ Cada agente o persona que trabaje simultáneamente usa su propio clon o worktree
 Ejemplo local, ejecutado desde la carpeta del repositorio:
 
 ```powershell
-git worktree add ../mi-changarrito-interfaz -b feat/interfaz integracion
+git fetch origin
+git worktree add ../mi-changarrito-front -b feat/front origin/main
 ```
 
-El nombre `interfaz` es ilustrativo; crear sólo los espacios correspondientes a tareas ya asignadas. Los agentes que usen espacios administrados por su herramienta deben seguir el mecanismo de worktrees de esa herramienta.
+Crear sólo los espacios correspondientes a tareas ya iniciadas. Los agentes que usen espacios administrados por su herramienta deben seguir el mecanismo de worktrees de esa herramienta.
 
-## Antes de repartir
+## Libertad y propiedad de archivos
 
-1. El líder acuerda el alcance con el equipo.
-2. Se designa integrador.
-3. Se acuerda el contrato de datos compartido y se guarda en `docs/`.
-4. Cada tarea define archivos propios, dependencias y criterio de aceptación.
+- Frontend es dueño de `front/`; backend de `back/`; Daniel de `ia/`.
+- Cada área elige herramientas, estructura interna y funciones adicionales dentro de su carpeta.
+- El líder coordina raíz, `docs/`, contratos y configuración compartida.
+- Conservar el contrato JSON v1 de `docs/contrato-v1.md` y `docs/contratos/`.
+- Acordar cambios incompatibles con el líder y las áreas afectadas antes de depender de ellos.
+- Frontend puede avanzar con los ejemplos sintéticos; backend conserva la fuente de verdad del catálogo; IA devuelve borradores revisables.
+- Mantener el núcleo en commits separables de las funciones experimentales.
 
 El integrador coordina cambios en contratos, dependencias, configuración y otros archivos compartidos.
 
@@ -38,9 +45,15 @@ El integrador coordina cambios en contratos, dependencias, configuración y otro
 - No incluir claves, credenciales ni datos personales reales sin autorización.
 - Evitar cambios ajenos a la tarea.
 
-Cuando exista GitHub, abrir una solicitud de cambios con destino a `integracion`. El integrador revisa y une cada entrega, resuelve conflictos y comprueba el recorrido completo. Después promueve una versión demostrable a `main`.
+## Corte de las 11:15
 
-Sin remoto, el integrador puede revisar las ramas locales y unirlas con Git. No hay sincronización entre computadoras hasta configurar un remoto o intercambiar los cambios explícitamente.
+1. Cada área sube el commit candidato y completa su propio `ENTREGA.md`.
+2. Reporta rama, commit, qué funciona, cómo ejecutarlo, qué se verificó y qué falta.
+3. El líder actualiza `integracion` con la base de `main` antes de integrar las áreas.
+4. Puede unir ramas completas coherentes o seleccionar commits autocontenidos. Las ampliaciones que no entren quedan conservadas en sus ramas.
+5. Comprueba el recorrido completo y promueve una entrega demostrable a `main`.
+
+Las ampliaciones pueden continuar después del corte si permanecen separadas y no retrasan el núcleo. El líder decide qué se presenta en el pitch según lo comprobado.
 
 ## Verificación de integración
 

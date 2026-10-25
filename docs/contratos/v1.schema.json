@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Mi Changarrito - contratos v1",
+  "$defs": {
+    "Location": {
+      "type": "object",
+      "required": ["lat", "lng", "label"],
+      "properties": {
+        "lat": {"type": "number", "minimum": -90, "maximum": 90},
+        "lng": {"type": "number", "minimum": -180, "maximum": 180},
+        "label": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "Business": {
+      "type": "object",
+      "required": ["id", "name", "category", "location", "schedule_text", "is_demo"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "name": {"type": "string", "minLength": 1},
+        "category": {"type": ["string", "null"]},
+        "location": {"$ref": "#/$defs/Location"},
+        "schedule_text": {"type": ["string", "null"]},
+        "is_demo": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "Offer": {
+      "type": "object",
+      "required": ["id", "business_id", "name", "category", "price_cents", "currency", "unit", "schedule_text", "status", "confirmed_at", "valid_until", "is_demo"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "business_id": {"type": "string", "minLength": 1},
+        "name": {"type": "string", "minLength": 1},
+        "category": {"type": ["string", "null"]},
+        "price_cents": {"type": ["integer", "null"], "minimum": 0},
+        "currency": {"const": "MXN"},
+        "unit": {"type": ["string", "null"]},
+        "schedule_text": {"type": ["string", "null"]},
+        "status": {"enum": ["draft", "published", "sold_out", "withdrawn", "expired"]},
+        "confirmed_at": {"type": ["string", "null"], "format": "date-time"},
+        "valid_until": {"type": ["string", "null"], "format": "date-time"},
+        "is_demo": {"type": "boolean"}
+      },
+      "allOf": [{
+        "if": {"properties": {"status": {"const": "published"}}, "required": ["status"]},
+        "then": {"properties": {
+          "confirmed_at": {"type": "string", "format": "date-time"},
+          "valid_until": {"type": "string", "format": "date-time"}
+        }}
+      }],
+      "additionalProperties": false
+    },
+    "ExtractionRequest": {
+      "type": "object",
+      "required": ["schema_version", "business_id", "source"],
+      "properties": {
+        "schema_version": {"const": "1.0"},
+        "business_id": {"type": "string", "minLength": 1},
+        "source": {"oneOf": [
+          {
+            "type": "object",
+            "required": ["type", "text"],
+            "properties": {"type": {"const": "text"}, "text": {"type": "string", "minLength": 1}},
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "required": ["type", "media_type", "data_base64"],
+            "properties": {
+              "type": {"const": "image"},
+              "media_type": {"enum": ["image/jpeg", "image/png", "image/webp"]},
+              "data_base64": {"type": "string", "minLength": 1}
+            },
+            "additionalProperties": false
+          }
+        ]}
+      },
+      "additionalProperties": false
+    },
+    "ExtractedOffer": {
+      "type": "object",
+      "required": ["name", "category", "price_cents", "currency", "unit", "schedule_text", "field_evidence", "warnings"],
+      "properties": {
+        "name": {"type": ["string", "null"]},
+        "category": {"type": ["string", "null"]},
+        "price_cents": {"type": ["integer", "null"], "minimum": 0},
+        "currency": {"const": "MXN"},
+        "unit": {"type": ["string", "null"]},
+        "schedule_text": {"type": ["string", "null"]},
+        "field_evidence": {
+          "type": "object",
+          "required": ["name", "category", "price_cents", "unit", "schedule_text"],
+          "properties": {
+            "name": {"type": ["string", "null"]},
+            "category": {"type": ["string", "null"]},
+            "price_cents": {"type": ["string", "null"]},
+            "unit": {"type": ["string", "null"]},
+            "schedule_text": {"type": ["string", "null"]}
+          },
+          "additionalProperties": false
+        },
+        "warnings": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "ExtractionResult": {
+      "type": "object",
+      "required": ["schema_version", "mode", "requires_review", "items", "warnings"],
+      "properties": {
+        "schema_version": {"const": "1.0"},
+        "mode": {"enum": ["mock", "live"]},
+        "requires_review": {"const": true},
+        "items": {"type": "array", "items": {"$ref": "#/$defs/ExtractedOffer"}},
+        "warnings": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    }
+  }
+}
