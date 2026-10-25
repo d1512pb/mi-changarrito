@@ -1,0 +1,8 @@
+---
+description: Contexto y colaboración por ramas para Mi Changarrito
+alwaysApply: true
+---
+
+- Aplicar la guía común de `AGENTS.md` a todo el repositorio.
+- Consultar `docs/decisiones.md` para distinguir acuerdos de propuestas.
+- Seguir `CONTRIBUTING.md` para ramas, espacios de trabajo e integración.
