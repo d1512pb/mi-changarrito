@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-25",
+  "mode": "live",
+  "connected": true,
+  "model": "claude-haiku-5-5",
+  "expected_ok_received": true,
+  "input_tokens": 16,
+  "output_tokens": 4,
+  "estimated_token_cost_usd": 0.0000036,
+  "latency_ms": 981,
+  "stop_reason": "end_turn",
+  "generation_requests": 1,
+  "cost_is_estimate": true,
+  "pricing_source": "https://platform.claude.com/docs/en/about-claude/pricing",
+  "note": "Salida observada de una prueba real. No contiene clave, workspace ni datos de usuarios. No representa una evaluación del recomendador."
+}

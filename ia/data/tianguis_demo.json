@@ -1,0 +1,15 @@
+{
+  "is_demo": true,
+  "description": "Datos sinteticos para pruebas internas; no representan negocios reales.",
+  "tianguis_id": "demo-tianguis-001",
+  "as_of": "2026-10-25T10:30:00-06:00",
+  "query": "Tengo 100 pesos y quiero comer, recomiendame algo",
+  "budget_cents": 10000,
+  "offers": [
+    {"id": "demo-comida-65", "business_id": "demo-puesto-01", "tianguis_id": "demo-tianguis-001", "name": "Comida corrida", "category": "comida", "price_cents": 6500, "currency": "MXN", "unit": "comida", "status": "published", "confirmed_at": "2026-10-25T10:00:00-06:00", "valid_until": "2026-10-25T18:00:00-06:00", "is_demo": true},
+    {"id": "demo-comida-85", "business_id": "demo-puesto-02", "tianguis_id": "demo-tianguis-001", "name": "Orden de tacos", "category": "comida", "price_cents": 8500, "currency": "MXN", "unit": "orden", "status": "published", "confirmed_at": "2026-10-25T10:00:00-06:00", "valid_until": "2026-10-25T18:00:00-06:00", "is_demo": true},
+    {"id": "demo-comida-120", "business_id": "demo-puesto-03", "tianguis_id": "demo-tianguis-001", "name": "Parrillada", "category": "comida", "price_cents": 12000, "currency": "MXN", "unit": "plato", "status": "published", "confirmed_at": "2026-10-25T10:00:00-06:00", "valid_until": "2026-10-25T18:00:00-06:00", "is_demo": true},
+    {"id": "demo-agotada-50", "business_id": "demo-puesto-04", "tianguis_id": "demo-tianguis-001", "name": "Torta", "category": "comida", "price_cents": 5000, "currency": "MXN", "unit": "pieza", "status": "sold_out", "confirmed_at": "2026-10-25T10:00:00-06:00", "valid_until": "2026-10-25T18:00:00-06:00", "is_demo": true},
+    {"id": "demo-vencida-40", "business_id": "demo-puesto-05", "tianguis_id": "demo-tianguis-001", "name": "Desayuno", "category": "comida", "price_cents": 4000, "currency": "MXN", "unit": "desayuno", "status": "published", "confirmed_at": "2026-10-25T08:00:00-06:00", "valid_until": "2026-10-25T09:00:00-06:00", "is_demo": true}
+  ]
+}
