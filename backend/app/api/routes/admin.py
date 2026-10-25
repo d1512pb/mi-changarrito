@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, status
 from app.api.dependencies.deps import get_user_service, require_roles
 from app.schemas.user_schema import AdminResetPassword, AdminUserCreate, AdminUserUpdate, Rol, UserProfileResponse
 from app.services.user_service import UserService
+from app.services.market_service import MarketService
 
 router = APIRouter(prefix="/admin", tags=["Admin (PRO)"])
 only_pro = require_roles("pro")
@@ -16,10 +17,10 @@ async def get_users(rol: Optional[Rol] = None, _: dict = Depends(only_pro),
 
 
 @router.post("/users", response_model=UserProfileResponse, status_code=status.HTTP_201_CREATED)
-async def create_user(data: AdminUserCreate, _: dict = Depends(only_pro),
+async def create_user(data: AdminUserCreate, actor: dict = Depends(only_pro),
                       service: UserService = Depends(get_user_service)):
     """Único camino para crear usuarios seguridad o pro."""
-    return await service.create_user(data.model_dump())
+    return await MarketService(service.db).create_managed_user(data.model_dump(), actor)
 
 
 @router.patch("/users/{user_id}", response_model=UserProfileResponse)

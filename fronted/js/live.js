@@ -7,7 +7,7 @@ Object.assign(Store, {
   register: LiveAPI.register
 });
 
-const LIVE_ROLES = { cliente: "Cliente", vendedor: "Vendedor", comercios: "Seguridad", gobierno: "Administración" };
+const LIVE_ROLES = { cliente: "Cliente", vendedor: "Puesto", gerente: "Gerente de tianguis", comercios: "Seguridad", gobierno: "Administración" };
 ROLE.comercios.label = "Seguridad";
 ROLE.gobierno.label = "Administración";
 const LIVE_STATES = { borrador: "Borrador · pendiente de confirmar", publicada: "Publicada", agotada: "Agotada", vencida: "Vencida", suspendida: "Suspendida" };
@@ -50,7 +50,7 @@ function liveOfferCard(offer, privateView = false, showDetailLink = true) {
   const state = offer.estado === "publicada" && !valid ? "Vencida" : LIVE_STATES[offer.estado] || "Estado desconocido";
   return `<article class="live-offer">
     ${image ? `<img class="live-offer__photo" src="${esc(image)}" alt="Foto de ${esc(offer.producto || "la oferta")}" loading="lazy">` : `<div class="live-offer__art" aria-hidden="true">${fruit("tomato")}</div>`}
-    <div class="live-offer__body"><p class="eyebrow">${esc(offer.negocio || "Comercio sin nombre")}</p><h2>${esc(offer.producto || "Producto por revisar")}</h2>
+    <div class="live-offer__body"><p class="eyebrow">${esc(offer.tianguis_nombre || "Tianguis por confirmar")}${offer.is_demo ? " · Demostración" : ""}</p><p>${esc(offer.negocio || "Puesto sin nombre")}</p><h2>${esc(offer.producto || "Producto por revisar")}</h2>
     ${privateView && offer.foto_url && !valid ? '<p class="small muted">Foto privada guardada</p>' : ""}
     <p class="price">${offer.precio_declarado == null ? "Precio por confirmar" : money(offer.precio_declarado)}${offer.unidad ? `<small> / ${esc(offer.unidad)}</small>` : ""}</p>
     ${offer.descripcion ? `<p>${esc(offer.descripcion)}</p>` : ""}<p class="small muted">${esc(offer.ubicacion?.direccion || "Dirección no declarada")}</p>
@@ -62,10 +62,10 @@ function liveOfferCard(offer, privateView = false, showDetailLink = true) {
 
 function liveCatalogue({ q = "" } = {}) {
   return {
-    title: "Ofertas de tu barrio",
+    title: "Ofertas de los tianguis",
     html: `<section class="live-hero"><div><p class="eyebrow">Lo que hay hoy en tu barrio</p><h1>Encuentra tu<br>próximo changarrito.</h1><p>Ofertas confirmadas por quien las vende, con precio declarado y vigencia.</p>
       <form class="live-search" id="live-search"><label class="sr" for="live-query">Buscar producto o negocio</label><input id="live-query" name="q" value="${esc(q)}" placeholder="¿Qué producto buscas?" maxlength="120"><button class="btn btn--primary" type="submit">${icon("search")}Buscar</button></form>
-      <div class="live-actions"><button class="btn btn--ghost" ${goAttr("register", { role: "vendedor" })}>Registrar mi negocio</button><button class="link" ${goAttr("demo")}>Ver ejemplo sintético</button></div></div><div class="live-hero__art" aria-hidden="true">${fruit("tomato")}${fruit("carrot")}${fruit("lemon")}</div></section>
+      <div class="live-actions"><button class="btn btn--ghost" ${goAttr("register", { role: "cliente" })}>Crear cuenta de cliente</button><button class="link" ${goAttr("demo")}>Ver ejemplo sintético</button></div><p class="small muted">Los puestos y sus usuarios los registra el gerente de cada tianguis.</p></div><div class="live-hero__art" aria-hidden="true">${fruit("tomato")}${fruit("carrot")}${fruit("lemon")}</div></section>
       <section class="sec"><div class="sec__head"><h2>${q ? `Resultados para “${esc(q)}”` : "Ofertas vigentes"}</h2></div><p class="small muted">Sólo se muestran ofertas publicadas y vigentes del catálogo del servidor. La vigencia de una oferta no confirma que el local esté abierto ahora.</p><div id="live-catalogue" aria-live="polite">${loading("Buscando ofertas…")}</div></section>`,
     mount(root) {
       $("#live-search", root).onsubmit = e => { e.preventDefault(); go("results", { q: inputValue(e.currentTarget, "q") }); };
@@ -75,7 +75,7 @@ function liveCatalogue({ q = "" } = {}) {
         try {
           const offers = await LiveAPI.search(q);
           if (!root.isConnected) return;
-          target.innerHTML = offers.length ? `<div class="live-grid">${offers.map(o => liveOfferCard(o)).join("")}</div>` : emptyState("Aún no hay ofertas disponibles", q ? "Prueba otro producto o negocio. Las ofertas agotadas o vencidas no aparecen aquí." : "El catálogo empieza vacío. Un vendedor puede registrar su negocio y confirmar su primera oferta.");
+          target.innerHTML = offers.length ? `<div class="live-grid">${offers.map(o => liveOfferCard(o)).join("")}</div>` : emptyState("Aún no hay ofertas disponibles", q ? "Prueba otro producto, puesto o tianguis. Las ofertas agotadas o vencidas no aparecen aquí." : "Los gerentes registran los puestos de sus tianguis. Sus ofertas aparecerán cuando el responsable las confirme.");
         } catch (e) { if (root.isConnected) liveError(target, e, load); }
       }; load();
     }
@@ -118,7 +118,7 @@ VIEWS.login = ({ prefill = "" } = {}) => ({
 });
 
 VIEWS.register = ({ role = "cliente" } = {}) => {
-  if (!["cliente", "vendedor"].includes(role)) return { html: emptyState("Registro no disponible", "Los perfiles de administración y seguridad se asignan de forma privada.") };
+  if (role !== "cliente") return { html: emptyState("Los puestos los registra su gerente", "Crea una cuenta de cliente para buscar ofertas. Para operar un puesto necesitas la cuenta creada por el gerente de tu tianguis.") };
   const seller = role === "vendedor";
   return {
     title: "Crear cuenta", cls: "main--narrow",
@@ -126,7 +126,7 @@ VIEWS.register = ({ role = "cliente" } = {}) => {
       <form class="form" id="live-register">${liveInput("nombre", "Tu nombre", "text", 'required maxlength="120" autocomplete="name"')}${liveInput("email", "Correo electrónico", "email", 'required maxlength="254" autocomplete="email"')}${liveInput("password", "Contraseña", "password", 'required minlength="8" maxlength="72" autocomplete="new-password"')}
       ${seller ? `${liveInput("nombre_negocio", "Nombre del negocio", "text", 'required maxlength="120"')}${liveInput("direccion", "Dirección o referencia del puesto", "text", 'maxlength="300"')}<div class="grid2">${liveInput("lat", "Latitud", "number", 'required min="-90" max="90" step="any"')}${liveInput("lng", "Longitud", "number", 'required min="-180" max="180" step="any"')}</div><button class="btn btn--ghost" type="button" id="use-location">${icon("pin")}Usar mi ubicación actual</button><p class="small muted" id="location-note">Revisa que las coordenadas correspondan al negocio. No inventamos una ubicación.</p>${liveInput("horario", "Horario declarado (opcional)", "text", 'maxlength="120" placeholder="Lunes a sábado, 9:00 a 18:00"')}` : ""}
       ${errorField()}<button class="btn btn--primary btn--block btn--lg" type="submit">Crear cuenta ${seller ? "de vendedor" : "de cliente"}</button></form>
-      <p class="auth__alt"><button class="link" ${goAttr("register", { role: seller ? "cliente" : "vendedor" })}>${seller ? "Quiero una cuenta de cliente" : "Quiero registrar mi negocio"}</button></p></section>`,
+      <p class="small muted">Esta cuenta permite buscar ofertas. El gerente del tianguis crea los usuarios de los puestos.</p></section>`,
     mount(root) {
       const form = $("#live-register", root);
       if (seller) $("#use-location", root).onclick = () => {
@@ -247,7 +247,7 @@ function liveReview(offer) {
 
 function liveStaff() {
   const user = LiveAPI.currentUser();
-  if (!user || !["comercios", "gobierno"].includes(user.role)) return needLogin("comercios");
+  if (!user || !["comercios", "gobierno", "gerente"].includes(user.role)) return needLogin("comercios");
   return {
     title: "Seguridad de ofertas", html: `<section class="sec"><p class="eyebrow">${esc(LIVE_ROLES[user.role])}</p><h1>Revisión de ofertas</h1><p>Acceso verificado por el servidor. Las acciones se aplican al catálogo real.</p><div id="staff-offers">${loading()}</div></section>`,
     mount(root) {

@@ -20,9 +20,10 @@ async def search_offers(
     lng: Optional[float] = Query(None, ge=-180, le=180),
     radio: float = Query(3.0, gt=0, le=50, description="Radio en km (solo con lat/lng)"),
     limit: int = Query(30, ge=1, le=100),
+    tianguis_id: Optional[str] = Query(None),
     service: OfferService = Depends(get_offer_service),
 ):
-    return await service.search(q, lat, lng, radio, limit)
+    return await service.search(q, lat, lng, radio, limit, tianguis_id)
 
 
 # ---- locatario ----

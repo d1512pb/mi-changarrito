@@ -84,9 +84,7 @@ def test_public_register_cannot_escalate():
         assert c.get("/user/profile", headers=h).status_code == 200
         loc = {**base, "email": "tienda@correo.mx", "rol": "locatario", "nombre_negocio": "Mi Tiendita",
                "ubicacion": {"lat": 19.4, "lng": -99.1}}
-        assert c.post("/user/register", json=loc).status_code == 201
-        hl = login(c, "tienda@correo.mx", "Secreta123")
-        assert c.post("/offer/draft", headers=hl, data={"texto": "tamales $15 la pieza"}).status_code == 201
+        assert c.post("/user/register", json=loc).status_code == 422  # lo registra el gerente, no la página pública
 
 
 def test_sessions_logout_and_limit():

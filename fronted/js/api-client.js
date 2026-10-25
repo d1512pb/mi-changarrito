@@ -2,7 +2,7 @@
 const LiveAPI = (() => {
   const sessionKey = "changarrito:api-session";
   let token = "", profile = null;
-  const roleMap = { consumidor: "cliente", locatario: "vendedor", seguridad: "comercios", pro: "gobierno" };
+  const roleMap = { consumidor: "cliente", locatario: "vendedor", gerente: "gerente", seguridad: "comercios", pro: "gobierno" };
   try { token = sessionStorage.getItem(sessionKey) || ""; } catch (_) { /* memoria si el almacenamiento está bloqueado */ }
 
   function clearSession() {
@@ -65,11 +65,10 @@ const LiveAPI = (() => {
     return profile ? { id: profile.id, role: roleMap[profile.rol], name: profile.nombre, login: profile.email, bizId: profile.id, favorites: [] } : null;
   }
   function register(role, data) {
-    if (!["cliente", "vendedor"].includes(role)) return Promise.reject(new Error("El registro público sólo admite clientes y vendedores."));
+    if (role !== "cliente") return Promise.reject(new Error("Los puestos los registra el gerente de su tianguis. El registro público es sólo para clientes."));
     return request("/user/register", { method: "POST", auth: false, body: {
       email: data.email, password: data.password, nombre: data.nombre,
-      rol: role === "vendedor" ? "locatario" : "consumidor",
-      ...(role === "vendedor" ? { nombre_negocio: data.nombre_negocio, ubicacion: data.ubicacion, horario: data.horario || null } : {})
+      rol: "consumidor"
     } });
   }
   function search(query = "") {

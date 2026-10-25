@@ -2,7 +2,8 @@ import uuid
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 
-from app.core.errors import Conflict, Invalid, NotFound
+from app.core.errors import Conflict, Forbidden, Invalid, NotFound
+from app.core.config import settings
 from app.services.ai_extractor import OfferExtractor
 from app.services.geo import haversine_km, norm
 
@@ -39,12 +40,22 @@ class OfferService:
     # ---------- locatario ----------
     async def create_draft(self, merchant: dict, texto: Optional[str], imagen: Optional[bytes],
                            mime: Optional[str], foto_url: Optional[str]) -> dict:
+        market = None
+        if merchant.get("tianguis_id"):
+            market = await self.db.tianguis.get(merchant["tianguis_id"])
+            if not market or not market.get("activo", True):
+                raise Forbidden("El tianguis del puesto no está activo")
+        elif settings.ENVIRONMENT.lower() == "production":
+            raise Forbidden("El gerente debe registrar tu puesto dentro de un tianguis")
         if not texto and not imagen:
             raise Invalid("Envía una foto o un texto con tu oferta")
         ext = await self.extractor.extract(texto, imagen, mime)
         doc = {
             "id": uuid.uuid4().hex,
             "id_merchant": merchant["id"],
+            "tianguis_id": market["id"] if market else None,
+            "tianguis_nombre": market["nombre"] if market else None,
+            "is_demo": market.get("is_demo", False) if market else False,
             "negocio": merchant["nombre_negocio"],
             "producto": None, "precio_declarado": None, "unidad": None, "descripcion": None,
             "horario": merchant.get("horario"),
@@ -118,14 +129,27 @@ class OfferService:
         return effective(doc)  # agotada/vencida se muestran como tales, nunca como disponibles
 
     async def search(self, q: Optional[str], lat: Optional[float], lng: Optional[float],
-                     radio_km: float, limit: int) -> list[dict]:
+                     radio_km: float, limit: int, tianguis_id: Optional[str] = None) -> list[dict]:
         docs = [effective(d) for d in await self.offers.find(estado="publicada")]
         docs = [d for d in docs if d["estado"] == "publicada"]  # descarta las vencidas
+        eligible = []
+        for doc in docs:
+            if tianguis_id and doc.get("tianguis_id") != tianguis_id:
+                continue
+            merchant = await self.db.user.get(doc["id_merchant"])
+            if not merchant or not merchant.get("activo", True):
+                continue
+            if doc.get("tianguis_id"):
+                market = await self.db.tianguis.get(doc["tianguis_id"])
+                if not market or not market.get("activo", True):
+                    continue
+            eligible.append(doc)
+        docs = eligible
         if q:
             terms = norm(q).split()
 
             def match(d):
-                hay = norm(" ".join(filter(None, [d["producto"], d["negocio"], d.get("descripcion")])))
+                hay = norm(" ".join(filter(None, [d["producto"], d["negocio"], d.get("descripcion"), d.get("tianguis_nombre")])))
                 return all(t in hay for t in terms)
 
             docs = [d for d in docs if match(d)]

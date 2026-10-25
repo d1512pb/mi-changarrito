@@ -35,6 +35,9 @@ class ReportOffer(BaseModel):
 class ResponseOffer(BaseModel):
     id: str
     id_merchant: str
+    tianguis_id: Optional[str] = None
+    tianguis_nombre: Optional[str] = None
+    is_demo: bool = False
     negocio: Optional[str] = None
     producto: Optional[str] = None
     precio_declarado: Optional[float] = None

@@ -52,11 +52,13 @@ test("un 401 de sesión elimina perfil y token del dispositivo", async () => {
 
 test("registro no permite elevar permisos ni enviar campos arbitrarios", async () => {
   const { api, calls } = client([{ status: 201, body: seller }]);
-  await assert.rejects(api.register("gobierno", {}), /sólo admite/);
+  await assert.rejects(api.register("gobierno", {}), /sólo para clientes/);
+  await assert.rejects(api.register("vendedor", {}), /sólo para clientes/);
   assert.equal(calls.length, 0);
-  await api.register("vendedor", { email: "seller@example.test", password: "password-value", nombre: "Vendedora", nombre_negocio: "Negocio", ubicacion: { lat: 19, lng: -99 }, rol: "pro", activo: true });
+  await api.register("cliente", { email: "client@example.test", password: "password-value", nombre: "Cliente", nombre_negocio: "No permitido", rol: "pro", activo: true });
   const body = JSON.parse(calls[0].body);
-  assert.equal(body.rol, "locatario");
+  assert.equal(body.rol, "consumidor");
+  assert.equal(body.nombre_negocio, undefined);
   assert.equal(body.activo, undefined);
   assert.equal(calls[0].headers.Authorization, undefined);
 });

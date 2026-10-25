@@ -13,7 +13,7 @@ El frontend, backend e integración de IA comparten una aplicación [publicada e
 - `ia/`: módulos de recomendación y análisis. La aplicación integrada ejecuta extracción local `mock` y recomendaciones `rules` del catálogo vigente, sin llamadas a Anthropic.
 - `Dockerfile` de la raíz: empaqueta las tres áreas en un solo servicio de aplicación. Railway mantiene la configuración de construcción y healthcheck; esta entrega no usa `railway.json`.
 
-En producción, PostgreSQL conserva usuarios, sesiones y ofertas mediante documentos JSONB; el bucket S3 guarda las fotos. El servidor exige configuración persistente y rechaza el arranque con semillas o un secreto de sesión por defecto. El catálogo comienza vacío, sin cuentas demo conocidas. El registro público sólo crea consumidores o locatarios; seguridad y PRO se administran de forma privada.
+En producción, PostgreSQL conserva usuarios, sesiones, tianguis y ofertas mediante documentos JSONB; el bucket S3 guarda las fotos. El registro público sólo crea clientes (`consumidor`). El administrador crea tianguis y asigna gerentes; cada gerente registra los puestos y usuarios de sus tianguis. Consulta [los roles del MVP](docs/roles-tianguis-mvp.md). Las cuentas de demostración se entregan por privado; sus contraseñas no están en Git ni en la página pública.
 
 El [contrato v1](docs/contrato-v1.md) es el objetivo de integración y aún tiene diferencias respecto a las rutas y campos actuales. La API ejecutable se documenta en `/docs`; la guía de despliegue enumera las rutas reales y los límites.
 

@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
-from app.api.routes import admin, ai, moderation, offer, session, user
+from app.api.routes import admin, ai, market, moderation, offer, session, user
 from app.api.dependencies.deps import bearer, get_current_user
 from app.core.config import settings
 from app.core.database import database, get_database
@@ -57,7 +57,7 @@ async def domain_error_handler(_: Request, exc: DomainError):
     return JSONResponse(status_code=exc.status_code, content={"detail": exc.detail, **exc.extra})
 
 
-for route in (user.router, session.router, offer.router, moderation.router, admin.router, ai.router):
+for route in (user.router, session.router, offer.router, moderation.router, admin.router, ai.router, market.router):
     app.include_router(route)
     app.include_router(route, prefix="/api")
 
@@ -100,7 +100,9 @@ async def uploaded_photo(name: str, request: Request, db=Depends(get_database)):
         except Unauthorized:
             raise NotFound("No se encontró la imagen") from None
         can_read = current_user["rol"] in ("seguridad", "pro") or any(
-            doc["id_merchant"] == current_user["id"] for doc in documents
+            doc["id_merchant"] == current_user["id"] or
+            (current_user["rol"] == "gerente" and doc.get("tianguis_id") in (current_user.get("tianguis_ids") or []))
+            for doc in documents
         )
         if not can_read:
             raise NotFound("No se encontró la imagen")

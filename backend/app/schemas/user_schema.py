@@ -1,9 +1,9 @@
 from datetime import datetime
 from typing import Literal, Optional
-from pydantic import BaseModel, EmailStr, Field, model_validator
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, model_validator
 from app.schemas.offer_schema import Ubicacion
 
-Rol = Literal["locatario", "seguridad", "consumidor", "pro"]
+Rol = Literal["locatario", "gerente", "seguridad", "consumidor", "pro"]
 
 
 class _UserBase(BaseModel):
@@ -21,12 +21,19 @@ class _UserBase(BaseModel):
         return self
 
 
-class UserCreate(_UserBase):
-    rol: Literal["locatario", "consumidor"] = "consumidor"
+class UserCreate(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    email: EmailStr
+    password: str = Field(min_length=8, max_length=72)
+    nombre: str = Field(min_length=1, max_length=120)
+    rol: Literal["consumidor"] = "consumidor"
 
 
 class AdminUserCreate(_UserBase):
+    model_config = ConfigDict(extra="forbid")
     rol: Rol
+    tianguis_ids: list[str] = Field(default_factory=list, max_length=50)
+    tianguis_id: Optional[str] = None
 
 
 class UserLogin(BaseModel):
@@ -67,3 +74,7 @@ class UserProfileResponse(BaseModel):
     nombre_negocio: Optional[str] = None
     ubicacion: Optional[Ubicacion] = None
     horario: Optional[str] = None
+    tianguis_ids: list[str] = Field(default_factory=list)
+    tianguis_id: Optional[str] = None
+    tianguis_nombre: Optional[str] = None
+    is_demo: bool = False
