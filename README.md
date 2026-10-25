@@ -2,53 +2,60 @@
 
 **Lo que hay hoy en tu barrio, confirmado por quien lo vende.**
 
-Propuesta de prototipo para el reto de comercio popular y barrial del Chilangatón 2026, CDMX.
+Aplicación integrada para el reto de comercio popular y barrial del Chilangatón 2026, CDMX. Un comerciante captura texto o una foto, revisa un borrador y confirma su publicación con vigencia. Los vecinos consultan ofertas disponibles; una oferta agotada o vencida sale de la búsqueda.
 
-Mi Changarrito convierte una foto o texto de un comercio en una ficha que su responsable revisa y publica con vigencia. Los vecinos pueden encontrar productos, precios declarados, horarios y ubicación, y saber cuándo se confirmó esa información.
+El frontend, backend e integración de IA ya comparten una aplicación. La configuración del primer despliegue en Railway está preparada; su publicación y verificación cloud todavía están pendientes. No se ha confirmado `SUCCESS` de esta versión.
 
-## El recorrido que construiremos primero
+## Aplicación actual
 
-1. El comerciante carga una foto o escribe su oferta.
-2. La IA propone los campos y señala los datos que faltan o son ambiguos.
-3. El comerciante revisa y confirma antes de publicar.
-4. Un vecino busca lo que necesita y consulta ofertas vigentes.
-5. Al agotarse o vencer una oferta, deja de recomendarse como disponible.
+- `fronted/`: PWA de HTML, CSS y JavaScript, sin compilación, servida en `/`.
+- `backend/`: FastAPI, autenticación Bearer, permisos, estados, catálogo y fotos. El frontend usa `/api` en el mismo origen; las rutas heredadas sin `/api` siguen disponibles.
+- `ia/`: módulos de recomendación y análisis. La aplicación integrada ejecuta extracción local `mock` y recomendaciones `rules` del catálogo vigente, sin llamadas a Anthropic.
+- `Dockerfile` de la raíz: empaqueta las tres áreas en un solo servicio de aplicación. Railway mantiene la configuración de construcción y healthcheck; esta entrega no usa `railway.json`.
 
-## Estado
+En producción, PostgreSQL conserva usuarios, sesiones y ofertas mediante documentos JSONB; el bucket S3 guarda las fotos. El servidor exige configuración persistente y rechaza el arranque con semillas o un secreto de sesión por defecto. El catálogo comienza vacío, sin cuentas demo conocidas. El registro público sólo crea consumidores o locatarios; seguridad y PRO se administran de forma privada.
 
-Repositorio dividido en tres áreas independientes, con responsabilidades, contrato y ejemplos compartidos. La aplicación todavía no está implementada. Cada responsable puede elegir sus herramientas respetando el contrato de integración.
+El [contrato v1](docs/contrato-v1.md) es el objetivo de integración y aún tiene diferencias respecto a las rutas y campos actuales. La API ejecutable se documenta en `/docs`; la guía de despliegue enumera las rutas reales y los límites.
 
-Repositorio privado en GitHub: [d1512pb/mi-changarrito](https://github.com/d1512pb/mi-changarrito). Para acceder, cada integrante debe aceptar su invitación de colaboración.
+## Desarrollo local
 
-## Documentos de trabajo
+Con Python 3.12, desde la raíz del repositorio:
 
-- [Centro de mando y corte de las 11:15](docs/centro-de-mando.md).
-- [Contrato mínimo de integración v1](docs/contrato-v1.md).
-- [Propuesta y alcance inicial](docs/propuesta.md).
-- [Decisiones confirmadas y pendientes](docs/decisiones.md).
-- [Trabajo por ramas e integración](CONTRIBUTING.md).
-- [Guía para agentes](AGENTS.md).
+```sh
+python -m venv .venv
+# Activar .venv según el sistema operativo.
+python -m pip install -r backend/requirements-dev.txt
+python -m uvicorn main:app --app-dir backend --host 127.0.0.1 --port 8000 --reload
+```
 
-## Áreas del equipo
+Abrir `http://127.0.0.1:8000/`; documentación en `/docs`, salud en `/api/health` y modos de extracción/recomendación en `/api/ai/status`. Sin `DATABASE_URL` y en desarrollo se usa memoria, que se pierde al reiniciar. La configuración de producción y las referencias de PostgreSQL/S3 están descritas en [Despliegue en Railway](docs/despliegue-railway.md).
 
-- [front/](front/README.md): pantallas, captura, revisión y búsqueda. Responsable: integrante de frontend.
-- [back/](back/README.md): API, catálogo, permisos, estados y persistencia. Responsable: integrante de backend.
-- [ia/](ia/README.md): extracción, IA, evaluación y ciencia de datos. Responsable: Daniel.
-- El cuarto integrante, líder y responsable del pitch, dirige el [centro de mando](docs/centro-de-mando.md) y coordina la integración.
+La sesión del navegador se guarda por pestaña, sin tokens en URLs. Capturar crea un borrador privado; publicar exige revisión explícita. La foto puede procesarse opcionalmente con OCR local del dispositivo o completarse manualmente. El ejemplo sintético es una pantalla separada y no se mezcla con el catálogo real.
 
-## Organización de Git
+## Verificación realizada
 
-- `main`: entregas revisadas y demostrables.
-- `integracion`: punto de unión de los módulos, coordinado por el líder.
-- Próximas ramas: `feat/front`, `feat/back` y `feat/ia`, creadas desde el `main` que contiene esta organización. Aún no se crean en esta preparación.
+Pasaron 24 pruebas de backend, 89 de IA y 12 del cliente/service worker, sin consumo de proveedores. También se comprobó el recorrido de interfaz con Edge y fixtures aisladas, incluido móvil sin desbordamiento, y un smoke HTTP contra el backend real local. Las pruebas del despliegue cloud y de persistencia tras reiniciar el servicio publicado siguen pendientes.
 
-Cada persona o agente trabaja en un clon o worktree propio. El corte es el **25 de octubre de 2026 a las 11:15, hora de Ciudad de México**. Cada área entrega commits separables; el líder selecciona lo esencial y conserva las ampliaciones en sus ramas si no entran.
+```sh
+cd backend
+python -m pytest tests
+cd ..
+python -m unittest discover -s ia/tests -v
+node --test fronted/tests/api.test.cjs fronted/tests/service-worker.test.cjs
+```
 
-## Fuentes de partida
+El smoke reproducible está en `scripts/deployment_smoke.py`, con fases `prepare` y `verify`. Crea registros técnicos sintéticos y al terminar retira su oferta de la búsqueda. Ver [procedimiento y manejo del estado privado](docs/despliegue-railway.md).
 
-La propuesta se basa en los documentos aportados por Daniel:
+## Documentación
 
-- *Descubre los retos del chilangatón.pdf*, 6 páginas.
-- *Chilangaton_CDMX_Investigacion_y_Propuesta.pdf*, especialmente páginas 20-31.
+- [Primer despliegue en Railway, variables y verificación](docs/despliegue-railway.md).
+- [Frontend conectado](fronted/README.md) y [entrega verificada](fronted/ENTREGA.md).
+- [API original de backend](backend/README.md): conserva antecedentes; la persistencia y el despliegue actuales se describen en la guía de Railway.
+- [Módulo de IA](ia/README.md): sus ejemplos históricos y opciones `--live` no forman parte del arranque integrado.
+- [Contrato v1](docs/contrato-v1.md), [decisiones](docs/decisiones.md), [coordinación](docs/centro-de-mando.md), [colaboración](CONTRIBUTING.md) y [guía de agentes](AGENTS.md).
 
-Los PDF originales permanecen en la carpeta superior. Este repositorio conserva la propuesta de trabajo; las afirmaciones externas del informe deberán comprobarse antes de usarse como evidencia en la presentación.
+Repositorio privado: [d1512pb/mi-changarrito](https://github.com/d1512pb/mi-changarrito). Los documentos iniciales `front/` y `back/` conservan la preparación del equipo; la aplicación ejecutable utiliza `fronted/` y `backend/`.
+
+## Límites actuales
+
+El catálogo real no incluye semillas sintéticas. Las recomendaciones locales no ofrecen interpretación generativa de consultas; la extracción puede requerir corrección manual. Carrito, mensajes entre usuarios, favoritos, asistencia, analítica administrativa y chat administrativo de IA no están conectados en esta entrega. La moderación de ofertas sí aplica permisos reales. No se inventan tianguis, horarios o ubicaciones; una oferta vigente no confirma que el local esté abierto ahora.
