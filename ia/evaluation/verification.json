@@ -1,0 +1,24 @@
+{
+  "checked_on": "2026-10-25",
+  "branch": "IA",
+  "test_command": "python -m unittest discover -s ia/tests -v",
+  "tests_run": 89,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "passed": true,
+  "provider_requests_in_tests": 0,
+  "http_scope": "loopback only; mock data and synthetic token",
+  "backend_review": {
+    "branch": "backend",
+    "commit": "84b5999057d06422238a5580a8102fab3ee45d29",
+    "method": "static source review; teammate server and tests not executed"
+  },
+  "real_admin_generation": "admin_prices_live.json",
+  "limitations": [
+    "Synthetic data; actual monthly PDF not supplied",
+    "No connection to teammate backend, persistent database, or frontend",
+    "Chart data and specifications, not a rendered dashboard",
+    "Map deferred for buyer and admin"
+  ]
+}

@@ -9,6 +9,7 @@ from uuid import UUID
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from ia.backend_adapter import BackendAdapterError, build_recommendation_payload
+from ia.recommender import recommend
 
 
 class BackendAdapterTests(unittest.TestCase):
@@ -109,6 +110,16 @@ class BackendAdapterTests(unittest.TestCase):
         self.assertEqual(result["payload"]["offers"], [])
         self.assertEqual(result["rejected"][0]["reason"], "missing_placement")
         self.assertTrue(result["warnings"])
+
+    def test_backend_translation_reaches_recommender_with_exact_budget(self):
+        adapted = self.build()
+        result = recommend(adapted["payload"], mode="mock")
+        self.assertEqual(result["status"], "ok")
+        self.assertEqual(result["recommendations"][0]["offer_id"], "offer-1")
+        self.assertEqual(result["recommendations"][0]["total_cents"], 6510)
+        self.assertEqual(result["recommendations"][0]["remaining_cents"], 3490)
+        missing = self.build(placements={})
+        self.assertEqual(recommend(missing["payload"], mode="mock")["status"], "no_match")
 
     def test_matching_market_and_current_session_are_required(self):
         self.context["tianguis_id"] = "other-market"

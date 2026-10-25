@@ -168,9 +168,21 @@ def _finish(ctx, action, metrics=None, rows=None, charts=None, map_points=None):
     used = {source for row in rows for source in row.get("source_ids", [])}
     used.update(market["source_id"] for market in ctx["markets"] if isinstance(market.get("source_id"), str))
     sources = []
+    public_kinds = {"synthetic_register", "synthetic_attendance", "synthetic_delivery_log", "synthetic_monthly_report", "register", "attendance", "delivery_log", "monthly_report"}
     for source in _list(ctx["snapshot"], "sources"):
         if source.get("id") in used:
-            sources.append({key: source[key] for key in ("id", "label", "kind", "period", "is_demo", "page_count", "note") if key in source})
+            # Document labels/notes may contain private names or arbitrary text.
+            # Publish only controlled provenance metadata, even when the source is private.
+            raw_kind = source.get("kind")
+            kind = raw_kind if isinstance(raw_kind, str) and raw_kind in public_kinds else "other"
+            public = {"id": source["id"], "label": "Fuente de demostración" if ctx["snapshot"]["is_demo"] else "Fuente de datos", "kind": kind}
+            if type(source.get("is_demo")) is bool:
+                public["is_demo"] = source["is_demo"]
+            if isinstance(source.get("period"), str) and re.fullmatch(r"\d{4}-(0[1-9]|1[0-2])", source["period"]):
+                public["period"] = source["period"]
+            if type(source.get("page_count")) is int and source["page_count"] > 0:
+                public["page_count"] = source["page_count"]
+            sources.append(public)
     if used - {source.get("id") for source in sources}:
         ctx["warnings"].append("Algunas referencias no tienen metadatos de fuente en este snapshot.")
     if not ctx["markets"]:

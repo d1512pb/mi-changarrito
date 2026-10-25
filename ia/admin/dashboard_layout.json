@@ -1,0 +1,86 @@
+{
+  "schema_version": "admin-dashboard-layout-1.0",
+  "purpose": "Configuracion de referencia para frontend; no es una interfaz ya construida.",
+  "filters": [
+    "period",
+    "borough",
+    "tianguis_ids",
+    "category",
+    "article_id",
+    "date"
+  ],
+  "drilldown": [
+    "borough",
+    "tianguis",
+    "participation",
+    "business",
+    "category",
+    "article"
+  ],
+  "panels": [
+    {
+      "section": "overview",
+      "title": "Resumen del alcance",
+      "view": "metrics_and_table",
+      "permission": "analytics:read"
+    },
+    {
+      "section": "composition",
+      "title": "Composicion por giros",
+      "view": "bar_and_table",
+      "permission": "analytics:read"
+    },
+    {
+      "section": "prices",
+      "title": "Precios comparables por articulo",
+      "view": "series_and_table",
+      "permission": "prices:read"
+    },
+    {
+      "section": "attendance",
+      "title": "Asistencia por jornada",
+      "view": "status_and_table",
+      "permission": "attendance:read"
+    },
+    {
+      "section": "reports",
+      "title": "Entrega mensual de reportes",
+      "view": "status_and_table",
+      "permission": "reports:read"
+    },
+    {
+      "section": "managers",
+      "title": "Directorio de gerentes",
+      "view": "table",
+      "permission": "managers:read"
+    },
+    {
+      "section": "coverage",
+      "title": "Datos faltantes y calidad",
+      "view": "table",
+      "permission": "analytics:read"
+    }
+  ],
+  "display_requirements": [
+    "Mostrar corte y periodo",
+    "Mostrar origen sintetico o real",
+    "Mostrar unidades y muestra",
+    "Conservar warnings y fuentes",
+    "Usar los mismos filtros en todos los paneles",
+    "No renderizar secciones omitidas por permisos",
+    "No inventar ceros ni coordenadas para faltantes"
+  ],
+  "future_panels": [
+    {
+      "section": "map",
+      "title": "Ubicacion y cobertura",
+      "view": "map_points",
+      "permission": "analytics:read",
+      "audiences": [
+        "buyer",
+        "admin"
+      ],
+      "status": "future_idea"
+    }
+  ]
+}

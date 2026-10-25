@@ -1,0 +1,1003 @@
+{
+  "schema_version": "admin-dashboard-1.0",
+  "read_only": true,
+  "data": {
+    "schema_version": "admin-dashboard-1.0",
+    "snapshot_id": "admin-demo-2026-10-25",
+    "is_demo": true,
+    "filters": {
+      "period": "2026-10",
+      "borough": null,
+      "tianguis_ids": [],
+      "category": null,
+      "article_id": null,
+      "date": null
+    },
+    "sections": {
+      "overview": {
+        "schema_version": "admin-analytics-1.0",
+        "is_demo": true,
+        "snapshot_id": "admin-demo-2026-10-25",
+        "action": "overview",
+        "filters": {
+          "period": "2026-10",
+          "borough": null,
+          "tianguis_ids": [],
+          "category": null,
+          "article_id": null,
+          "date": null
+        },
+        "metrics": {
+          "tianguis_count": 3,
+          "unique_businesses": 6,
+          "approved_participations": 7,
+          "manager_count": 3
+        },
+        "rows": [
+          {
+            "tianguis_id": "t-centro",
+            "tianguis_name": "Tianguis Demo Centro",
+            "borough": "Coyoacan",
+            "unique_businesses": 3,
+            "approved_participations": 3,
+            "primary_category": "verduras",
+            "primary_category_count": 2,
+            "source_ids": [
+              "src-roster"
+            ],
+            "manager_id": "m-centro",
+            "manager_name": "Gerente Demo Centro"
+          },
+          {
+            "tianguis_id": "t-oriente",
+            "tianguis_name": "Tianguis Demo Oriente",
+            "borough": "Iztapalapa",
+            "unique_businesses": 3,
+            "approved_participations": 3,
+            "primary_category": "verduras",
+            "primary_category_count": 2,
+            "source_ids": [
+              "src-roster"
+            ],
+            "manager_id": "m-oriente",
+            "manager_name": "Gerente Demo Oriente"
+          },
+          {
+            "tianguis_id": "t-parque",
+            "tianguis_name": "Tianguis Demo Parque",
+            "borough": "Coyoacan",
+            "unique_businesses": 1,
+            "approved_participations": 1,
+            "primary_category": "abarrotes",
+            "primary_category_count": 1,
+            "source_ids": [
+              "src-roster"
+            ],
+            "manager_id": "m-parque",
+            "manager_name": "Gerente Demo Parque"
+          }
+        ],
+        "charts": [
+          {
+            "type": "bar",
+            "title": "Changarritos únicos por tianguis dentro del filtro",
+            "x_label": "Tianguis",
+            "y_label": "Changarritos únicos (cantidad)",
+            "data": [
+              {
+                "tianguis": "Tianguis Demo Centro",
+                "business_count": 3
+              },
+              {
+                "tianguis": "Tianguis Demo Oriente",
+                "business_count": 3
+              },
+              {
+                "tianguis": "Tianguis Demo Parque",
+                "business_count": 1
+              }
+            ]
+          }
+        ],
+        "map_points": [],
+        "sources": [
+          {
+            "id": "src-roster",
+            "label": "Fuente de demostración",
+            "kind": "synthetic_register",
+            "is_demo": true
+          }
+        ],
+        "warnings": [
+          "Datos sintéticos de demostración; no se recibió ni leyó un PDF mensual real."
+        ]
+      },
+      "composition": {
+        "schema_version": "admin-analytics-1.0",
+        "is_demo": true,
+        "snapshot_id": "admin-demo-2026-10-25",
+        "action": "composition",
+        "filters": {
+          "period": "2026-10",
+          "borough": null,
+          "tianguis_ids": [],
+          "category": null,
+          "article_id": null,
+          "date": null
+        },
+        "metrics": {
+          "category_count": 3,
+          "denominator": "changarritos únicos por tianguis dentro del filtro"
+        },
+        "rows": [
+          {
+            "tianguis_id": "t-centro",
+            "tianguis_name": "Tianguis Demo Centro",
+            "category": "comida_preparada",
+            "business_count": 1,
+            "participation_count": 1,
+            "denominator_businesses": 3,
+            "share_percent": 33.33,
+            "source_ids": [
+              "src-roster"
+            ]
+          },
+          {
+            "tianguis_id": "t-centro",
+            "tianguis_name": "Tianguis Demo Centro",
+            "category": "verduras",
+            "business_count": 2,
+            "participation_count": 2,
+            "denominator_businesses": 3,
+            "share_percent": 66.67,
+            "source_ids": [
+              "src-roster"
+            ]
+          },
+          {
+            "tianguis_id": "t-oriente",
+            "tianguis_name": "Tianguis Demo Oriente",
+            "category": "comida_preparada",
+            "business_count": 1,
+            "participation_count": 1,
+            "denominator_businesses": 3,
+            "share_percent": 33.33,
+            "source_ids": [
+              "src-roster"
+            ]
+          },
+          {
+            "tianguis_id": "t-oriente",
+            "tianguis_name": "Tianguis Demo Oriente",
+            "category": "verduras",
+            "business_count": 2,
+            "participation_count": 2,
+            "denominator_businesses": 3,
+            "share_percent": 66.67,
+            "source_ids": [
+              "src-roster"
+            ]
+          },
+          {
+            "tianguis_id": "t-parque",
+            "tianguis_name": "Tianguis Demo Parque",
+            "category": "abarrotes",
+            "business_count": 1,
+            "participation_count": 1,
+            "denominator_businesses": 1,
+            "share_percent": 100,
+            "source_ids": [
+              "src-roster"
+            ]
+          }
+        ],
+        "charts": [
+          {
+            "type": "bar",
+            "title": "Composición de changarritos por categoría dentro del filtro",
+            "x_label": "Tianguis y categoría",
+            "y_label": "Changarritos únicos (cantidad)",
+            "data": [
+              {
+                "tianguis": "Tianguis Demo Centro",
+                "category": "comida_preparada",
+                "business_count": 1
+              },
+              {
+                "tianguis": "Tianguis Demo Centro",
+                "category": "verduras",
+                "business_count": 2
+              },
+              {
+                "tianguis": "Tianguis Demo Oriente",
+                "category": "comida_preparada",
+                "business_count": 1
+              },
+              {
+                "tianguis": "Tianguis Demo Oriente",
+                "category": "verduras",
+                "business_count": 2
+              },
+              {
+                "tianguis": "Tianguis Demo Parque",
+                "category": "abarrotes",
+                "business_count": 1
+              }
+            ]
+          }
+        ],
+        "map_points": [],
+        "sources": [
+          {
+            "id": "src-roster",
+            "label": "Fuente de demostración",
+            "kind": "synthetic_register",
+            "is_demo": true
+          }
+        ],
+        "warnings": [
+          "Datos sintéticos de demostración; no se recibió ni leyó un PDF mensual real."
+        ]
+      },
+      "coverage": {
+        "schema_version": "admin-analytics-1.0",
+        "is_demo": true,
+        "snapshot_id": "admin-demo-2026-10-25",
+        "action": "coverage",
+        "filters": {
+          "period": "2026-10",
+          "borough": null,
+          "tianguis_ids": [],
+          "category": null,
+          "article_id": null,
+          "date": null
+        },
+        "metrics": {
+          "tianguis_count": 3,
+          "located_tianguis": 2,
+          "price_records": 14,
+          "normalized_price_samples": 11
+        },
+        "rows": [
+          {
+            "tianguis_id": "t-centro",
+            "tianguis_name": "Tianguis Demo Centro",
+            "price_records": 7,
+            "normalized_price_samples": 6,
+            "unique_articles": 4,
+            "has_coordinates": true,
+            "source_ids": [
+              "src-prices-2026-10",
+              "src-roster"
+            ]
+          },
+          {
+            "tianguis_id": "t-oriente",
+            "tianguis_name": "Tianguis Demo Oriente",
+            "price_records": 4,
+            "normalized_price_samples": 3,
+            "unique_articles": 2,
+            "has_coordinates": true,
+            "source_ids": [
+              "src-prices-2026-10",
+              "src-roster"
+            ]
+          },
+          {
+            "tianguis_id": "t-parque",
+            "tianguis_name": "Tianguis Demo Parque",
+            "price_records": 3,
+            "normalized_price_samples": 2,
+            "unique_articles": 2,
+            "has_coordinates": false,
+            "source_ids": [
+              "src-prices-2026-10",
+              "src-roster"
+            ]
+          }
+        ],
+        "charts": [],
+        "map_points": [],
+        "sources": [
+          {
+            "id": "src-roster",
+            "label": "Fuente de demostración",
+            "kind": "synthetic_register",
+            "is_demo": true
+          },
+          {
+            "id": "src-prices-2026-10",
+            "label": "Fuente de demostración",
+            "kind": "synthetic_monthly_report",
+            "is_demo": true,
+            "period": "2026-10",
+            "page_count": 16
+          }
+        ],
+        "warnings": [
+          "Datos sintéticos de demostración; no se recibió ni leyó un PDF mensual real.",
+          "Se excluyeron 1 registros de precios: fechas futuras.",
+          "Se excluyeron 2 registros de precios: precio, unidad o confirmación insuficiente."
+        ]
+      },
+      "prices": {
+        "schema_version": "admin-analytics-1.0",
+        "is_demo": true,
+        "snapshot_id": "admin-demo-2026-10-25",
+        "action": "prices",
+        "filters": {
+          "period": "2026-10",
+          "borough": null,
+          "tianguis_ids": [],
+          "category": null,
+          "article_id": null,
+          "date": null
+        },
+        "metrics": {
+          "price_records": 14,
+          "normalized_samples": 11,
+          "article_groups": 6,
+          "comparable_groups": 3,
+          "sample_policy": "última observación confirmada por negocio-tianguis-artículo-variante-unidad-moneda del periodo"
+        },
+        "rows": [
+          {
+            "article_id": "aceite",
+            "article_name": "Aceite",
+            "variant": "vegetal",
+            "unit": "l",
+            "currency": "MXN",
+            "tianguis_id": "t-centro",
+            "tianguis_name": "Tianguis Demo Centro",
+            "n_samples": 1,
+            "n_businesses": 1,
+            "median_price_cents": 5600,
+            "min_price_cents": 5600,
+            "max_price_cents": 5600,
+            "spread_market_medians_cents": 1400,
+            "spread_market_medians_percent": 33.33,
+            "source_ids": [
+              "src-prices-2026-10"
+            ],
+            "references": [
+              {
+                "observation_id": "o-oct-oil2",
+                "source_id": "src-prices-2026-10",
+                "page": 11,
+                "observed_on": "2026-10-24"
+              }
+            ]
+          },
+          {
+            "article_id": "aceite",
+            "article_name": "Aceite",
+            "variant": "vegetal",
+            "unit": "l",
+            "currency": "MXN",
+            "tianguis_id": "t-parque",
+            "tianguis_name": "Tianguis Demo Parque",
+            "n_samples": 1,
+            "n_businesses": 1,
+            "median_price_cents": 4200,
+            "min_price_cents": 4200,
+            "max_price_cents": 4200,
+            "spread_market_medians_cents": 1400,
+            "spread_market_medians_percent": 33.33,
+            "source_ids": [
+              "src-prices-2026-10"
+            ],
+            "references": [
+              {
+                "observation_id": "o-oct-oil1",
+                "source_id": "src-prices-2026-10",
+                "page": 10,
+                "observed_on": "2026-10-24"
+              }
+            ]
+          },
+          {
+            "article_id": "cebolla",
+            "article_name": "Cebolla",
+            "variant": "blanca",
+            "unit": "kg",
+            "currency": "MXN",
+            "tianguis_id": "t-centro",
+            "tianguis_name": "Tianguis Demo Centro",
+            "n_samples": 1,
+            "n_businesses": 1,
+            "median_price_cents": 2200,
+            "min_price_cents": 2200,
+            "max_price_cents": 2200,
+            "spread_market_medians_cents": 400,
+            "spread_market_medians_percent": 22.22,
+            "source_ids": [
+              "src-prices-2026-10"
+            ],
+            "references": [
+              {
+                "observation_id": "o-oct-cebolla1",
+                "source_id": "src-prices-2026-10",
+                "page": 8,
+                "observed_on": "2026-10-24"
+              }
+            ]
+          },
+          {
+            "article_id": "cebolla",
+            "article_name": "Cebolla",
+            "variant": "blanca",
+            "unit": "kg",
+            "currency": "MXN",
+            "tianguis_id": "t-oriente",
+            "tianguis_name": "Tianguis Demo Oriente",
+            "n_samples": 1,
+            "n_businesses": 1,
+            "median_price_cents": 1800,
+            "min_price_cents": 1800,
+            "max_price_cents": 1800,
+            "spread_market_medians_cents": 400,
+            "spread_market_medians_percent": 22.22,
+            "source_ids": [
+              "src-prices-2026-10"
+            ],
+            "references": [
+              {
+                "observation_id": "o-oct-cebolla2",
+                "source_id": "src-prices-2026-10",
+                "page": 9,
+                "observed_on": "2026-10-24"
+              }
+            ]
+          },
+          {
+            "article_id": "jitomate",
+            "article_name": "Jitomate",
+            "variant": "cherry",
+            "unit": "kg",
+            "currency": "MXN",
+            "tianguis_id": "t-centro",
+            "tianguis_name": "Tianguis Demo Centro",
+            "n_samples": 1,
+            "n_businesses": 1,
+            "median_price_cents": 6000,
+            "min_price_cents": 6000,
+            "max_price_cents": 6000,
+            "spread_market_medians_cents": null,
+            "spread_market_medians_percent": null,
+            "source_ids": [
+              "src-prices-2026-10"
+            ],
+            "references": [
+              {
+                "observation_id": "o-oct-cherry",
+                "source_id": "src-prices-2026-10",
+                "page": 7,
+                "observed_on": "2026-10-24"
+              }
+            ]
+          },
+          {
+            "article_id": "jitomate",
+            "article_name": "Jitomate",
+            "variant": "saladette",
+            "unit": "kg",
+            "currency": "MXN",
+            "tianguis_id": "t-centro",
+            "tianguis_name": "Tianguis Demo Centro",
+            "n_samples": 2,
+            "n_businesses": 2,
+            "median_price_cents": 3800,
+            "min_price_cents": 3400,
+            "max_price_cents": 4200,
+            "spread_market_medians_cents": 900,
+            "spread_market_medians_percent": 31.03,
+            "source_ids": [
+              "src-prices-2026-10"
+            ],
+            "references": [
+              {
+                "observation_id": "o-oct-latest",
+                "source_id": "src-prices-2026-10",
+                "page": 2,
+                "observed_on": "2026-10-25"
+              },
+              {
+                "observation_id": "o-oct-halfkg",
+                "source_id": "src-prices-2026-10",
+                "page": 3,
+                "observed_on": "2026-10-24"
+              }
+            ]
+          },
+          {
+            "article_id": "jitomate",
+            "article_name": "Jitomate",
+            "variant": "saladette",
+            "unit": "kg",
+            "currency": "MXN",
+            "tianguis_id": "t-oriente",
+            "tianguis_name": "Tianguis Demo Oriente",
+            "n_samples": 2,
+            "n_businesses": 2,
+            "median_price_cents": 2900,
+            "min_price_cents": 2800,
+            "max_price_cents": 3000,
+            "spread_market_medians_cents": 900,
+            "spread_market_medians_percent": 31.03,
+            "source_ids": [
+              "src-prices-2026-10"
+            ],
+            "references": [
+              {
+                "observation_id": "o-oct-oriente1",
+                "source_id": "src-prices-2026-10",
+                "page": 4,
+                "observed_on": "2026-10-24"
+              },
+              {
+                "observation_id": "o-oct-oriente2",
+                "source_id": "src-prices-2026-10",
+                "page": 5,
+                "observed_on": "2026-10-24"
+              }
+            ]
+          },
+          {
+            "article_id": "tortilla",
+            "article_name": "Tortilla",
+            "variant": "maiz",
+            "unit": "kg",
+            "currency": "MXN",
+            "tianguis_id": "t-parque",
+            "tianguis_name": "Tianguis Demo Parque",
+            "n_samples": 1,
+            "n_businesses": 1,
+            "median_price_cents": 2400,
+            "min_price_cents": 2400,
+            "max_price_cents": 2400,
+            "spread_market_medians_cents": null,
+            "spread_market_medians_percent": null,
+            "source_ids": [
+              "src-prices-2026-10"
+            ],
+            "references": [
+              {
+                "observation_id": "o-oct-tortilla-kg",
+                "source_id": "src-prices-2026-10",
+                "page": 13,
+                "observed_on": "2026-10-24"
+              }
+            ]
+          },
+          {
+            "article_id": "tortilla",
+            "article_name": "Tortilla",
+            "variant": "maiz",
+            "unit": "pieza",
+            "currency": "MXN",
+            "tianguis_id": "t-centro",
+            "tianguis_name": "Tianguis Demo Centro",
+            "n_samples": 1,
+            "n_businesses": 1,
+            "median_price_cents": 200,
+            "min_price_cents": 200,
+            "max_price_cents": 200,
+            "spread_market_medians_cents": null,
+            "spread_market_medians_percent": null,
+            "source_ids": [
+              "src-prices-2026-10"
+            ],
+            "references": [
+              {
+                "observation_id": "o-oct-tortilla-piece",
+                "source_id": "src-prices-2026-10",
+                "page": 12,
+                "observed_on": "2026-10-24"
+              }
+            ]
+          }
+        ],
+        "charts": [
+          {
+            "type": "bar",
+            "title": "Precio mediano: Aceite, vegetal (2026-10)",
+            "x_label": "Tianguis",
+            "y_label": "Precio mediano (MXN/l)",
+            "data": [
+              {
+                "tianguis": "Tianguis Demo Centro",
+                "median_price": 56,
+                "n_samples": 1
+              },
+              {
+                "tianguis": "Tianguis Demo Parque",
+                "median_price": 42,
+                "n_samples": 1
+              }
+            ]
+          },
+          {
+            "type": "bar",
+            "title": "Precio mediano: Cebolla, blanca (2026-10)",
+            "x_label": "Tianguis",
+            "y_label": "Precio mediano (MXN/kg)",
+            "data": [
+              {
+                "tianguis": "Tianguis Demo Centro",
+                "median_price": 22,
+                "n_samples": 1
+              },
+              {
+                "tianguis": "Tianguis Demo Oriente",
+                "median_price": 18,
+                "n_samples": 1
+              }
+            ]
+          },
+          {
+            "type": "bar",
+            "title": "Precio mediano: Jitomate, cherry (2026-10)",
+            "x_label": "Tianguis",
+            "y_label": "Precio mediano (MXN/kg)",
+            "data": [
+              {
+                "tianguis": "Tianguis Demo Centro",
+                "median_price": 60,
+                "n_samples": 1
+              }
+            ]
+          },
+          {
+            "type": "bar",
+            "title": "Precio mediano: Jitomate, saladette (2026-10)",
+            "x_label": "Tianguis",
+            "y_label": "Precio mediano (MXN/kg)",
+            "data": [
+              {
+                "tianguis": "Tianguis Demo Centro",
+                "median_price": 38,
+                "n_samples": 2
+              },
+              {
+                "tianguis": "Tianguis Demo Oriente",
+                "median_price": 29,
+                "n_samples": 2
+              }
+            ]
+          },
+          {
+            "type": "bar",
+            "title": "Precio mediano: Tortilla, maiz (2026-10)",
+            "x_label": "Tianguis",
+            "y_label": "Precio mediano (MXN/kg)",
+            "data": [
+              {
+                "tianguis": "Tianguis Demo Parque",
+                "median_price": 24,
+                "n_samples": 1
+              }
+            ]
+          },
+          {
+            "type": "bar",
+            "title": "Precio mediano: Tortilla, maiz (2026-10)",
+            "x_label": "Tianguis",
+            "y_label": "Precio mediano (MXN/pieza)",
+            "data": [
+              {
+                "tianguis": "Tianguis Demo Centro",
+                "median_price": 2,
+                "n_samples": 1
+              }
+            ]
+          }
+        ],
+        "map_points": [],
+        "sources": [
+          {
+            "id": "src-roster",
+            "label": "Fuente de demostración",
+            "kind": "synthetic_register",
+            "is_demo": true
+          },
+          {
+            "id": "src-prices-2026-10",
+            "label": "Fuente de demostración",
+            "kind": "synthetic_monthly_report",
+            "is_demo": true,
+            "period": "2026-10",
+            "page_count": 16
+          }
+        ],
+        "warnings": [
+          "Datos sintéticos de demostración; no se recibió ni leyó un PDF mensual real.",
+          "Se excluyeron 1 registros de precios: fechas futuras.",
+          "Se excluyeron 2 registros de precios: precio, unidad o confirmación insuficiente.",
+          "Comparaciones descriptivas por artículo, variante, unidad y moneda; no se promedian categorías heterogéneas ni se infieren causas."
+        ]
+      },
+      "attendance": {
+        "schema_version": "admin-analytics-1.0",
+        "is_demo": true,
+        "snapshot_id": "admin-demo-2026-10-25",
+        "action": "attendance",
+        "filters": {
+          "period": "2026-10",
+          "borough": null,
+          "tianguis_ids": [],
+          "category": null,
+          "article_id": null,
+          "date": null
+        },
+        "metrics": {
+          "expected_manager_sessions": 3,
+          "present": 1,
+          "explicit_absent": 1,
+          "unreported": 1,
+          "attendance_percent_of_expected": 33.33
+        },
+        "rows": [
+          {
+            "tianguis_id": "t-centro",
+            "tianguis_name": "Tianguis Demo Centro",
+            "date": "2026-10-25",
+            "status": "present",
+            "source_ids": [
+              "src-attendance",
+              "src-roster"
+            ],
+            "manager_id": "m-centro",
+            "manager_name": "Gerente Demo Centro"
+          },
+          {
+            "tianguis_id": "t-oriente",
+            "tianguis_name": "Tianguis Demo Oriente",
+            "date": "2026-10-25",
+            "status": "absent",
+            "source_ids": [
+              "src-attendance",
+              "src-roster"
+            ],
+            "manager_id": "m-oriente",
+            "manager_name": "Gerente Demo Oriente"
+          },
+          {
+            "tianguis_id": "t-parque",
+            "tianguis_name": "Tianguis Demo Parque",
+            "date": "2026-10-25",
+            "status": "unreported",
+            "source_ids": [
+              "src-attendance",
+              "src-roster"
+            ],
+            "manager_id": "m-parque",
+            "manager_name": "Gerente Demo Parque"
+          }
+        ],
+        "charts": [
+          {
+            "type": "bar",
+            "title": "Pase de lista de gerentes en jornadas programadas",
+            "x_label": "Estado de asistencia",
+            "y_label": "Jornadas de gerente (cantidad)",
+            "data": [
+              {
+                "status": "present",
+                "count": 1
+              },
+              {
+                "status": "absent",
+                "count": 1
+              },
+              {
+                "status": "unreported",
+                "count": 1
+              }
+            ]
+          }
+        ],
+        "map_points": [],
+        "sources": [
+          {
+            "id": "src-roster",
+            "label": "Fuente de demostración",
+            "kind": "synthetic_register",
+            "is_demo": true
+          },
+          {
+            "id": "src-attendance",
+            "label": "Fuente de demostración",
+            "kind": "synthetic_attendance",
+            "is_demo": true
+          }
+        ],
+        "warnings": [
+          "Datos sintéticos de demostración; no se recibió ni leyó un PDF mensual real.",
+          "La asistencia usa sólo jornadas programadas y registros explícitos. Pendiente no equivale a ausencia ni a falta de entrega mensual."
+        ]
+      },
+      "reports": {
+        "schema_version": "admin-analytics-1.0",
+        "is_demo": true,
+        "snapshot_id": "admin-demo-2026-10-25",
+        "action": "reports",
+        "filters": {
+          "period": "2026-10",
+          "borough": null,
+          "tianguis_ids": [],
+          "category": null,
+          "article_id": null,
+          "date": null
+        },
+        "metrics": {
+          "expected_monthly_reports": 3,
+          "submitted": 1,
+          "pending": 1,
+          "overdue": 1,
+          "unreported": 0
+        },
+        "rows": [
+          {
+            "tianguis_id": "t-centro",
+            "tianguis_name": "Tianguis Demo Centro",
+            "period": "2026-10",
+            "status": "submitted",
+            "due_on": "2026-10-24",
+            "submitted_at": "2026-10-23T10:00:00-06:00",
+            "source_ids": [
+              "src-delivery",
+              "src-roster"
+            ],
+            "manager_id": "m-centro",
+            "manager_name": "Gerente Demo Centro"
+          },
+          {
+            "tianguis_id": "t-oriente",
+            "tianguis_name": "Tianguis Demo Oriente",
+            "period": "2026-10",
+            "status": "overdue",
+            "due_on": "2026-10-24",
+            "submitted_at": null,
+            "source_ids": [
+              "src-delivery",
+              "src-roster"
+            ],
+            "manager_id": "m-oriente",
+            "manager_name": "Gerente Demo Oriente"
+          },
+          {
+            "tianguis_id": "t-parque",
+            "tianguis_name": "Tianguis Demo Parque",
+            "period": "2026-10",
+            "status": "pending",
+            "due_on": "2026-10-28",
+            "submitted_at": null,
+            "source_ids": [
+              "src-delivery",
+              "src-roster"
+            ],
+            "manager_id": "m-parque",
+            "manager_name": "Gerente Demo Parque"
+          }
+        ],
+        "charts": [
+          {
+            "type": "bar",
+            "title": "Entregas del reporte mensual",
+            "x_label": "Estado de entrega",
+            "y_label": "Reportes (cantidad)",
+            "data": [
+              {
+                "status": "submitted",
+                "count": 1
+              },
+              {
+                "status": "pending",
+                "count": 1
+              },
+              {
+                "status": "overdue",
+                "count": 1
+              },
+              {
+                "status": "unreported",
+                "count": 0
+              }
+            ]
+          }
+        ],
+        "map_points": [],
+        "sources": [
+          {
+            "id": "src-roster",
+            "label": "Fuente de demostración",
+            "kind": "synthetic_register",
+            "is_demo": true
+          },
+          {
+            "id": "src-delivery",
+            "label": "Fuente de demostración",
+            "kind": "synthetic_delivery_log",
+            "is_demo": true
+          }
+        ],
+        "warnings": [
+          "Datos sintéticos de demostración; no se recibió ni leyó un PDF mensual real."
+        ]
+      },
+      "managers": {
+        "schema_version": "admin-analytics-1.0",
+        "is_demo": true,
+        "snapshot_id": "admin-demo-2026-10-25",
+        "action": "managers",
+        "filters": {
+          "period": "2026-10",
+          "borough": null,
+          "tianguis_ids": [],
+          "category": null,
+          "article_id": null,
+          "date": null
+        },
+        "metrics": {
+          "manager_count": 3,
+          "assignments": 3
+        },
+        "rows": [
+          {
+            "tianguis_id": "t-centro",
+            "tianguis_name": "Tianguis Demo Centro",
+            "borough": "Coyoacan",
+            "source_ids": [
+              "src-roster"
+            ],
+            "manager_id": "m-centro",
+            "manager_name": "Gerente Demo Centro"
+          },
+          {
+            "tianguis_id": "t-oriente",
+            "tianguis_name": "Tianguis Demo Oriente",
+            "borough": "Iztapalapa",
+            "source_ids": [
+              "src-roster"
+            ],
+            "manager_id": "m-oriente",
+            "manager_name": "Gerente Demo Oriente"
+          },
+          {
+            "tianguis_id": "t-parque",
+            "tianguis_name": "Tianguis Demo Parque",
+            "borough": "Coyoacan",
+            "source_ids": [
+              "src-roster"
+            ],
+            "manager_id": "m-parque",
+            "manager_name": "Gerente Demo Parque"
+          }
+        ],
+        "charts": [],
+        "map_points": [],
+        "sources": [
+          {
+            "id": "src-roster",
+            "label": "Fuente de demostración",
+            "kind": "synthetic_register",
+            "is_demo": true
+          }
+        ],
+        "warnings": [
+          "Datos sintéticos de demostración; no se recibió ni leyó un PDF mensual real."
+        ]
+      }
+    },
+    "deferred_features": [
+      {
+        "id": "tianguis_map",
+        "audiences": [
+          "buyer",
+          "admin"
+        ],
+        "status": "future_idea"
+      }
+    ]
+  }
+}

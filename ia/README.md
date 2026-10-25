@@ -6,7 +6,7 @@ Responsable: Daniel. Rama actual: **`IA`**, por instrucción de Daniel. Corte: *
 
 El enfoque actualizado es exclusivamente tianguis, con cuatro roles: admin, gerente, changarrito y comprador. El gerente crea los perfiles de los changarritos. Consulta [el plan breve](PLAN.md) y [la propuesta de conexión con backend](INTEGRACION_BACKEND.md).
 
-El plan fue aprobado por Daniel. Están implementados la conexión a Claude, el recomendador con presupuesto, la validación de jornadas y un servicio local para backend. Un changarrito conserva su identidad y puede participar en distintos tianguis según el día. La extracción de menús, voz y los agentes autónomos siguen como ampliaciones.
+El plan fue aprobado por Daniel. Están implementados la conexión a Claude, el recomendador con presupuesto, la validación de jornadas, el chat administrativo y los cálculos para dashboard mediante un servicio local para backend. Un changarrito conserva su identidad y puede participar en distintos tianguis según el día. La extracción de menús, voz y los agentes autónomos siguen como ampliaciones.
 
 Conexión real verificada el 25/10/2026: una generación respondió al marcador esperado, con 16 tokens de entrada y 4 de salida. [Resultado observado](evaluation/smoke_result.json). Las pruebas automatizadas usan respuestas simuladas y no consumen API.
 
@@ -31,7 +31,9 @@ La prueba verifica acceso a `claude-haiku-5-5` y hace una generación con máxim
 - Servicio local con Claude: `python ia/api.py --mode live`.
 - Importación desde Python: `from ia import recommend`; llamar `recommend(payload, mode="mock")` o `mode="live"`.
 
-El servicio escucha en `127.0.0.1:8001`: `GET /health` y `POST /recommend`. Es un puente local para backend; no está publicado para otras computadoras ni en Internet. [Contrato y ejemplo de uso](INTEGRACION_BACKEND.md).
+El servicio escucha en `127.0.0.1:8001`: `GET /health`, `POST /recommend`, `POST /admin/chat` y `POST /admin/dashboard`. Es un puente local para backend; no está publicado para otras computadoras ni en Internet. [Contrato del comprador](INTEGRACION_BACKEND.md) y [contrato administrativo](ADMIN_INTEGRACION.md).
+
+La [revisión de la rama backend](REVISION_BACKEND.md) identifica rutas implementadas y diferencias pendientes. `build_recommendation_payload` de `ia.backend_adapter` traduce sus ofertas en español al contrato del recomendador; exige participaciones y jornadas explícitas y devuelve rechazos explicados cuando faltan. No está conectado todavía al servidor del compañero.
 
 Haiku usa **esfuerzo alto**, pensamiento adaptativo y salida JSON estructurada, con máximo 2048 tokens por generación. El catálogo se filtra antes de llamar al modelo y los IDs, importes y resultados se verifican después. Hay límites de entrada y cero reintentos o cambios automáticos de modelo. El esfuerzo alto no sustituye las validaciones.
 
@@ -43,13 +45,26 @@ Haiku usa **esfuerzo alto**, pensamiento adaptativo y salida JSON estructurada, 
 
 Añadir `--live` para consultar a Haiku high en las etapas con candidatos. La etapa sin opciones no llama al modelo. `--output` permite guardar el reporte; no incluir datos privados.
 
-[Secuencia real verificada con Claude](evaluation/dynamic_live.json): al agotar la comida de $65 quedó la alternativa de $85; al agotar las alternativas dentro del presupuesto respondió `no_match` sin una tercera llamada. Dos generaciones con costo total estimado de US$0.0002742. Las 31 pruebas automatizadas de esta entrega no consumen API.
+[Secuencia real verificada con Claude](evaluation/dynamic_live.json): al agotar la comida de $65 quedó la alternativa de $85; al agotar las alternativas dentro del presupuesto respondió `no_match` sin una tercera llamada. Dos generaciones con costo total estimado de US$0.0002742. Las pruebas automatizadas no consumen API.
+
+## Chat administrativo y dashboard
+
+Prioridad actual: mejorar las consultas de comprador y administrador. El administrador consulta resumen, giros, precios, gerentes, asistencia por jornada, entrega mensual y calidad de datos. Asistencia y reportes son indicadores distintos. El alcance y los permisos provienen de backend; las rutas administrativas requieren además `IA_INTERNAL_TOKEN`, secreto compartido sólo entre servidores.
+
+- `python ia/admin_demo.py --summary`: comparación sintética sin consumo.
+- `python ia/admin_demo.py --live --summary`: una interpretación con Haiku high; las cifras se calculan por código.
+- `python ia/admin_demo.py --dashboard --summary`: secciones autorizadas y filtros compartidos, sin Claude.
+- `--output ruta.json` conserva el resultado completo para integración.
+
+La [prueba administrativa real](evaluation/admin_prices_live.json) comparó medianas de jitomate saladette a $29 y $38 MXN/kg: diferencia observada de $9, separando la variante cherry. Una generación: 1462 tokens de entrada, 63 de salida, 2913 ms y US$0.0001777 estimados. Todos los registros y referencias de página son sintéticos; no se recibió el PDF mensual real.
+
+El módulo devuelve filas y especificaciones de gráficas; la pantalla se integra en frontend. El mapa compartido por comprador y administrador queda como idea futura y se omite del dashboard por defecto. [Plan](ADMIN_PLAN.md), [integración](ADMIN_INTEGRACION.md) y [paneles de referencia](admin/dashboard_layout.json).
 
 ## Propiedad
 
 Todo el código, prompts, evaluación y análisis de esta área vive en `ia/`. Puedes elegir herramientas y modelos. Respeta el [contrato v1](../docs/contrato-v1.md); los cambios compartidos se coordinan con el líder.
 
-## Siguiente ampliación: extracción
+## Ampliación posterior: extracción
 
 1. Recibir ExtractionRequest por texto o imagen y devolver ExtractionResult validado.
 2. Extraer candidatos de producto, categoría, precio en centavos, unidad y horario, con evidencia cuando exista.
