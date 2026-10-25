@@ -18,6 +18,8 @@ Mi Changarrito convierte una foto o texto de un comercio en una ficha que su res
 
 Repositorio de arranque: propuesta y forma de colaboración documentadas. La aplicación todavía no está implementada. El alcance y las tecnologías están sujetos al acuerdo del equipo y a las indicaciones del evento.
 
+Repositorio privado en GitHub: [d1512pb/mi-changarrito](https://github.com/d1512pb/mi-changarrito). Para acceder, cada integrante debe aceptar su invitación de colaboración.
+
 ## Documentos de trabajo
 
 - [Propuesta y alcance inicial](docs/propuesta.md).
