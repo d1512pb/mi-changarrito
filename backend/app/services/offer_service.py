@@ -56,6 +56,7 @@ class OfferService:
             "foto_url": foto_url,
             "texto_original": texto,
             "campos_ambiguos": ext.ambiguos,
+            "extraction_mode": ext.mode,
             "reportes": [],
             "creado_en": now(),
         }

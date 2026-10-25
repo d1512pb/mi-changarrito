@@ -46,6 +46,7 @@ class ResponseOffer(BaseModel):
     vigente_hasta: Optional[datetime] = None
     confirmado_en: Optional[datetime] = None
     foto_url: Optional[str] = None
+    extraction_mode: Optional[str] = None
     campos_faltantes: List[str] = []
     campos_ambiguos: List[str] = []
     motivo_suspension: Optional[str] = None

@@ -1,3 +1,4 @@
+import asyncio
 from typing import List, Optional
 from fastapi import APIRouter, Depends, File, Form, Query, UploadFile, status
 
@@ -48,8 +49,11 @@ async def create_draft(
     campos_faltantes y campos_ambiguos para que el front los resalte."""
     imagen = mime = foto_url = None
     if foto is not None and foto.filename:
-        imagen, mime = await foto.read(), foto.content_type
-        foto_url = save_photo(imagen, mime, settings.UPLOADS_DIR, settings.MAX_PHOTO_MB)
+        imagen = await foto.read(settings.MAX_PHOTO_MB * 1024 * 1024 + 1)
+        mime = foto.content_type
+        foto_url = await asyncio.to_thread(
+            save_photo, imagen, mime, settings.UPLOADS_DIR, settings.MAX_PHOTO_MB
+        )
     return await service.create_draft(current_user, texto, imagen, mime, foto_url)
 
 

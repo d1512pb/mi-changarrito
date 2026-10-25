@@ -1,7 +1,7 @@
 {
-  "name": "Huacal · Comercio local",
-  "short_name": "Huacal",
-  "description": "Tianguis, mercados y locales de tu ciudad: quién está abierto, qué vende y a cuánto.",
+  "name": "Mi Changarrito · Comercio local",
+  "short_name": "Mi Changarrito",
+  "description": "Ofertas de tu barrio con precio declarado y vigencia.",
   "lang": "es-MX",
   "start_url": "./",
   "scope": "./",

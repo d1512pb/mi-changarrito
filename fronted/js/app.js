@@ -20,7 +20,6 @@ const ROLE = {
   gobierno: { label: "Administrador de Gobierno", icon: "building", tone: "petroleo", desc: "Consulta y analiza datos de toda la ciudad" }
 };
 const PANEL = { cliente: "panelCliente", vendedor: "panelVendedor", comercios: "panelComercios", gobierno: "panelGobierno" };
-const DEMO = { cliente: ["cliente@huacal.mx"], vendedor: ["vendedor@huacal.mx"], comercios: ["comercios@huacal.mx", "ADC-0427"], gobierno: ["gobierno@huacal.mx", "GOB-1001"] };
 
 /* ================= Enrutador ================= */
 const app = document.getElementById("app");
@@ -60,7 +59,7 @@ function render(restoreScroll) {
   const def = VIEWS[v.name] || VIEWS.home;
   const out = def(v.params || {});
   app.innerHTML = topbar() + `<main id="main" class="main ${out.cls || ""}" tabindex="-1">${out.html}</main>`;
-  document.title = out.title ? `${out.title} · Huacal` : "Huacal";
+  document.title = out.title ? `${out.title} · Mi Changarrito` : "Mi Changarrito";
   window.scrollTo(0, restoreScroll && v.scroll ? v.scroll : 0);
   if (out.mount) out.mount($("#main"));
 }
@@ -555,14 +554,12 @@ VIEWS.login = ({ role = "cliente", prefill = "" }) => {
         <p class="form__err" id="lg-err" role="alert" hidden></p>
         <button class="btn btn--primary btn--block btn--lg" type="submit">Entrar</button>
       </form>
-      <div class="demo"><p><b>Cuenta de prueba:</b> <span class="sel">${DEMO[role][0]}</span> · contraseña <span class="sel">huacal123</span>${DEMO[role][1] ? ` · folio <span class="sel">${DEMO[role][1]}</span>` : ""}</p><button type="button" class="btn btn--ghost btn--sm" id="lg-demo">Usar cuenta de prueba</button></div>
       ${role !== "gobierno" ? `<p class="auth__alt">¿Aún no tienes cuenta? <button class="link" ${goAttr("register", { role })}>Regístrate como ${R.label.toLowerCase()}</button></p>`
         : `<p class="auth__alt muted">Las cuentas de gobierno las emite la dependencia. Solicita tu folio a tu área de sistemas.</p>`}
     </section>`,
     mount(root) {
       const f = $("#lgForm", root);
       $(".pw__t", root).onclick = e => { const i = $("#lg-pw", root); i.type = i.type === "password" ? "text" : "password"; e.currentTarget.setAttribute("aria-label", i.type === "password" ? "Mostrar contraseña" : "Ocultar contraseña"); };
-      $("#lg-demo", root).onclick = () => { $("#lg-id", root).value = DEMO[role][0]; $("#lg-pw", root).value = "huacal123"; if (admin) $("#lg-folio", root).value = DEMO[role][1]; $("[type=submit]", f).focus(); };
       (prefill ? $("#lg-pw", root) : $("#lg-id", root)).focus();
       f.addEventListener("submit", e => {
         e.preventDefault();

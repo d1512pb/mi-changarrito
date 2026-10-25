@@ -11,6 +11,7 @@ from typing import Optional, Protocol
 class ExtractionResult:
     campos: dict = field(default_factory=dict)         # producto, precio_declarado, unidad, horario...
     ambiguos: list[str] = field(default_factory=list)  # campos que la IA no está segura de haber leído bien
+    mode: str = "mock"
 
 
 class OfferExtractor(Protocol):

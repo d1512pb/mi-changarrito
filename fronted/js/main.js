@@ -8,7 +8,7 @@ if ("serviceWorker" in navigator && CFG.REGISTER_SW !== false && location.protoc
         const nw = reg.installing;
         nw && nw.addEventListener("statechange", () => {
           if (nw.state === "installed" && navigator.serviceWorker.controller)
-            toast("Hay una versión nueva de Huacal", { icon: "sparkle", action: "Actualizar", onAction: () => location.reload(), ms: 10000 });
+            toast("Hay una versión nueva de Mi Changarrito", { icon: "sparkle", action: "Actualizar", onAction: () => location.reload(), ms: 10000 });
         });
       });
     }).catch(() => { });
@@ -19,5 +19,5 @@ if ("serviceWorker" in navigator && CFG.REGISTER_SW !== false && location.protoc
 let deferredInstall = null;
 window.addEventListener("beforeinstallprompt", e => {
   e.preventDefault(); deferredInstall = e;
-  setTimeout(() => toast("Instala Huacal en tu pantalla de inicio", { icon: "plus", action: "Instalar", ms: 9000, onAction: () => { deferredInstall.prompt(); deferredInstall = null; } }), 4000);
+  setTimeout(() => toast("Instala Mi Changarrito en tu pantalla de inicio", { icon: "plus", action: "Instalar", ms: 9000, onAction: () => { if (deferredInstall) deferredInstall.prompt(); deferredInstall = null; } }), 4000);
 });
