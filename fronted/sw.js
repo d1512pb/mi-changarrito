@@ -1,5 +1,5 @@
 /* Sólo shell estático. Ninguna respuesta de API, sesión, foto o dato privado se cachea. */
-const VERSION = "changarrito-shell-v3-tianguis";
+const VERSION = "changarrito-shell-v4-imagenes";
 const SHELL = [
   "./", "index.html", "manifest.webmanifest", "css/styles.css",
   "js/config.js", "js/icons.js", "js/data.js", "js/store.js", "js/fx.js", "js/ocr.js",

@@ -49,7 +49,7 @@ function liveOfferCard(offer, privateView = false, showDetailLink = true) {
   const image = valid && typeof offer.foto_url === "string" && /^\/uploads\/[a-zA-Z0-9._/-]+$/.test(offer.foto_url) ? offer.foto_url : "";
   const state = offer.estado === "publicada" && !valid ? "Vencida" : LIVE_STATES[offer.estado] || "Estado desconocido";
   return `<article class="live-offer">
-    ${image ? `<img class="live-offer__photo" src="${esc(image)}" alt="Foto de ${esc(offer.producto || "la oferta")}" loading="lazy">` : `<div class="live-offer__art" aria-hidden="true">${fruit("tomato")}</div>`}
+    ${image ? `<img class="live-offer__photo" src="${esc(image)}" alt="Foto de ${esc(offer.producto || "la oferta")}" loading="lazy">` : `<div class="live-offer__art" style="background-color:${ART_TINT[offerArt(offer.producto)] || ART_TINT.crate}" aria-hidden="true">${fruit(offerArt(offer.producto))}</div>`}
     <div class="live-offer__body"><p class="eyebrow">${esc(offer.tianguis_nombre || "Tianguis por confirmar")}${offer.is_demo ? " · Demostración" : ""}</p><p>${esc(offer.negocio || "Puesto sin nombre")}</p><h2>${esc(offer.producto || "Producto por revisar")}</h2>
     ${privateView && offer.foto_url && !valid ? '<p class="small muted">Foto privada guardada</p>' : ""}
     <p class="price">${offer.precio_declarado == null ? "Precio por confirmar" : money(offer.precio_declarado)}${offer.unidad ? `<small> / ${esc(offer.unidad)}</small>` : ""}</p>
@@ -65,7 +65,7 @@ function liveCatalogue({ q = "" } = {}) {
     title: "Ofertas de los tianguis",
     html: `<section class="live-hero"><div><p class="eyebrow">Lo que hay hoy en tu barrio</p><h1>Encuentra tu<br>próximo changarrito.</h1><p>Ofertas confirmadas por quien las vende, con precio declarado y vigencia.</p>
       <form class="live-search" id="live-search"><label class="sr" for="live-query">Buscar producto o negocio</label><input id="live-query" name="q" value="${esc(q)}" placeholder="¿Qué producto buscas?" maxlength="120"><button class="btn btn--primary" type="submit">${icon("search")}Buscar</button></form>
-      <div class="live-actions"><button class="btn btn--ghost" ${goAttr("register", { role: "cliente" })}>Crear cuenta de cliente</button><button class="link" ${goAttr("demo")}>Ver ejemplo sintético</button></div><p class="small muted">Los puestos y sus usuarios los registra el gerente de cada tianguis.</p></div><div class="live-hero__art" aria-hidden="true">${fruit("tomato")}${fruit("carrot")}${fruit("lemon")}</div></section>
+      <div class="live-actions"><button class="btn btn--ghost" ${goAttr("register", { role: "cliente" })}>Crear cuenta de cliente</button><button class="link" ${goAttr("demo")}>Ver ejemplo sintético</button></div><p class="small muted">Los puestos y sus usuarios los registra el gerente de cada tianguis.</p></div><div class="live-hero__art" aria-hidden="true">${fruit("avocado")}${fruit("panmuerto")}${fruit("lemon")}</div></section>
       <section class="sec"><div class="sec__head"><h2>${q ? `Resultados para “${esc(q)}”` : "Ofertas vigentes"}</h2></div><p class="small muted">Sólo se muestran ofertas publicadas y vigentes del catálogo del servidor. La vigencia de una oferta no confirma que el local esté abierto ahora.</p><div id="live-catalogue" aria-live="polite">${loading("Buscando ofertas…")}</div></section>`,
     mount(root) {
       $("#live-search", root).onsubmit = e => { e.preventDefault(); go("results", { q: inputValue(e.currentTarget, "q") }); };
@@ -270,7 +270,7 @@ function liveStaff() {
 VIEWS.panelComercios = liveStaff;
 VIEWS.panelGobierno = liveStaff;
 
-VIEWS.demo = () => ({ title: "Ejemplo sintético", cls: "main--narrow", html: `<section class="sec"><p class="eyebrow">Ejemplo sintético · separado del catálogo</p><h1>Así se verá tu oferta</h1><p>Estos datos son inventados para explicar la interfaz. No son una oferta disponible, no se guardan en el servidor y no tienen una cuenta de acceso.</p><article class="live-offer"><div class="live-offer__art">${fruit("tomato")}</div><div class="live-offer__body"><p class="eyebrow">Negocio de ejemplo</p><h2>Jitomate de ejemplo</h2><p class="price">$28<small>/kg</small></p><p>Precio y producto sintéticos. Vigencia y ubicación por confirmar.</p></div></article><button class="btn btn--primary" ${goAttr("home")}>Volver al catálogo real</button></section>` });
+VIEWS.demo = () => ({ title: "Ejemplo sintético", cls: "main--narrow", html: `<section class="sec"><p class="eyebrow">Ejemplo sintético · separado del catálogo</p><h1>Así se verá tu oferta</h1><p>Estos datos son inventados para explicar la interfaz. No son una oferta disponible, no se guardan en el servidor y no tienen una cuenta de acceso.</p><article class="live-offer"><div class="live-offer__art" style="background-color:${ART_TINT.avocado}">${fruit("avocado")}</div><div class="live-offer__body"><p class="eyebrow">Negocio de ejemplo</p><h2>Aguacate de ejemplo</h2><p class="price">$78<small>/kg</small></p><p>Precio y producto sintéticos. Vigencia y ubicación por confirmar.</p></div></article><button class="btn btn--primary" ${goAttr("home")}>Volver al catálogo real</button></section>` });
 
 boot = async function () {
   app.innerHTML = topbar() + `<main class="main">${loading("Comprobando sesión…")}</main>`;

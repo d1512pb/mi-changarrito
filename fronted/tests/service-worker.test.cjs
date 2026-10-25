@@ -9,7 +9,7 @@ function worker() {
   const handlers = {}, removed = [];
   const context = vm.createContext({ URL, Response, Set,
     self: { registration: { scope: "https://example.test/" }, location: { origin: "https://example.test" }, addEventListener: (event, handler) => { handlers[event] = handler; }, clients: { claim: async () => {} } },
-    caches: { keys: async () => ["huacal-v1", "huacal-v1-ext", "changarrito-shell-old", "changarrito-shell-v2", "unrelated"], delete: async name => { removed.push(name); } },
+    caches: { keys: async () => ["huacal-v1", "huacal-v1-ext", "changarrito-shell-old", /const VERSION = "([^"]+)"/.exec(source)[1], "unrelated"], delete: async name => { removed.push(name); } },
     fetch: () => Promise.resolve(new Response("ok"))
   });
   vm.runInContext(source + ";this.shell = SHELL", context);

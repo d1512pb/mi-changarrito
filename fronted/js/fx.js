@@ -19,7 +19,7 @@ function fruitTransition(name, onCovered, minMs = 2600) {
     const sway = (Math.random() * 60 - 30).toFixed(0);
     html += `<span class="fx__f" style="left:${left}%;width:${size}px;height:${size}px;--d:${dur}s;--delay:${delay}s;--rot:${rot}deg;--sway:${sway}px">${fruit(kind)}</span>`;
   }
-  ov.innerHTML = `${html}<div class="fx__card"><div class="fx__crate">${fruit("tomato")}${fruit("carrot")}${fruit("lemon")}</div><p class="fx__hi">¡Hola, ${esc(name.split(" ")[0])}!</p><p class="fx__sub">Preparando tu panel…</p></div>`;
+  ov.innerHTML = `${html}<div class="fx__card"><div class="fx__crate">${fruit("avocado")}${fruit("carrot")}${fruit("lemon")}</div><p class="fx__hi">¡Hola, ${esc(name.split(" ")[0])}!</p><p class="fx__sub">Preparando tu panel…</p></div>`;
   document.body.appendChild(ov);
   requestAnimationFrame(() => ov.classList.add("is-on"));
   const t0 = performance.now();
