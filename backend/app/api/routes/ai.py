@@ -15,7 +15,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from app.api.dependencies.deps import get_current_user, get_offer_service
 from app.schemas.offer_schema import ResponseOffer
-from app.services.offer_service import OfferService
+from app.services.offer_service import OfferService, is_demo_catalog_offer
 
 
 router = APIRouter(prefix="/ai", tags=["Recomendaciones"])
@@ -153,6 +153,9 @@ async def recommendation(
     rows = await service.search(None, request.lat, request.lng, request.radio, 100)
     active_rows = []
     for row in rows:
+        if is_demo_catalog_offer(row):
+            active_rows.append(row)
+            continue
         merchant = await service.db.user.get(row.get("id_merchant"))
         if merchant and merchant.get("activo", True):
             active_rows.append(row)

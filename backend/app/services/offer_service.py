@@ -23,6 +23,11 @@ def missing_fields(doc: dict) -> list[str]:
     return [f for f in REQUIRED if doc.get(f) in (None, "")]
 
 
+def is_demo_catalog_offer(doc: dict) -> bool:
+    """Oferta sintética del catálogo de demostración: no tiene cuenta de comerciante."""
+    return doc.get("is_demo") is True and str(doc.get("id_merchant") or "").startswith("demo-")
+
+
 def effective(doc: dict) -> dict:
     """Una oferta publicada con vigencia pasada se trata como 'vencida' al leerla.
     No hace falta ningún job que cambie estados."""
@@ -136,9 +141,10 @@ class OfferService:
         for doc in docs:
             if tianguis_id and doc.get("tianguis_id") != tianguis_id:
                 continue
-            merchant = await self.db.user.get(doc["id_merchant"])
-            if not merchant or not merchant.get("activo", True):
-                continue
+            if not is_demo_catalog_offer(doc):
+                merchant = await self.db.user.get(doc["id_merchant"])
+                if not merchant or not merchant.get("activo", True):
+                    continue
             if doc.get("tianguis_id"):
                 market = await self.db.tianguis.get(doc["tianguis_id"])
                 if not market or not market.get("activo", True):

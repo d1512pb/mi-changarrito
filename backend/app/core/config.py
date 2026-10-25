@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     BCRYPT_ROUNDS: int = 12
     CORS_ORIGINS: str = "http://localhost:5173,http://localhost:3000,http://localhost:4321"
     SEED_ON_START: bool = False
+    DEMO_CATALOG: bool = False  # sólo tianguis y ofertas sintéticas marcadas is_demo; nunca cuentas
     DATABASE_URL: Optional[str] = None
     UPLOADS_DIR: str = "uploads"
     MAX_PHOTO_MB: int = Field(5, ge=1, le=20)

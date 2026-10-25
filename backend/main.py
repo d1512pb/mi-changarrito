@@ -12,6 +12,7 @@ from app.api.dependencies.deps import bearer, get_current_user
 from app.core.config import settings
 from app.core.database import database, get_database
 from app.core.errors import DomainError, NotFound, Unauthorized
+from app.demo_catalog import ensure_demo_catalog
 from app.middleware.session_middleware import SessionInfoMiddleware
 from app.seed import ensure_pro, seed
 from app.services.offer_service import effective
@@ -30,6 +31,8 @@ async def lifespan(app: FastAPI):
         if settings.SEED_ON_START:
             await seed(db)
         await ensure_pro(db)
+        if settings.DEMO_CATALOG:
+            await ensure_demo_catalog(db)
         yield
     finally:
         await database.disconnect()
