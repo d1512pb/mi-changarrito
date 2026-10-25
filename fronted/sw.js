@@ -1,9 +1,9 @@
 /* Sólo shell estático. Ninguna respuesta de API, sesión, foto o dato privado se cachea. */
-const VERSION = "changarrito-shell-v3-tianguis";
+const VERSION = "changarrito-shell-v4-chat";
 const SHELL = [
   "./", "index.html", "manifest.webmanifest", "css/styles.css",
   "js/config.js", "js/icons.js", "js/data.js", "js/store.js", "js/fx.js", "js/ocr.js",
-  "js/app.js", "js/panels.js", "js/api-client.js", "js/live.js", "js/management.js", "js/main.js",
+  "js/app.js", "js/panels.js", "js/api-client.js", "js/live.js", "js/management.js", "js/chat.js", "js/main.js",
   "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png", "icons/icon-maskable-512.png"
 ];
 const STATIC_URLS = new Set(SHELL.map(path => new URL(path, self.registration.scope).href));

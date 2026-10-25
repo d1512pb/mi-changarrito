@@ -627,3 +627,16 @@ select:disabled { opacity: .55; }
 .topbar .btn--ghost { color: #fff; border-color: #91afad; background: rgba(255,255,255,.08); }
 .topbar .btn--ghost:hover { background: rgba(255,255,255,.18); }
 @media (max-width: 620px) { .live-hero { grid-template-columns: 1fr; padding: 24px 0; } .live-hero__art { display: none; } .live-search { flex-direction: column; } .topbar .logo span { font-size: .95rem; } }
+/* Conversación de compras y administración. */
+.chat-log { display: grid; gap: 1.25rem; padding-block: 1rem 2rem; }
+.chat-turn { display: grid; gap: .75rem; min-width: 0; }
+.chat-bubble { border-radius: 18px; padding: 1rem 1.15rem; overflow-wrap: anywhere; }
+.chat-bubble--user { justify-self: end; max-width: 88%; background: #365e60; color: #fff; white-space: pre-wrap; }
+.chat-bubble--assistant { background: #fffdf5; border: 1px solid #cbdcda; min-width: 0; }
+.chat-answer { white-space: pre-wrap; line-height: 1.6; }
+.chat-options { display: grid; gap: 1rem; margin-top: 1rem; }
+.chat-options .live-offer__photo { max-height: 240px; object-fit: cover; }
+.chat-time { margin: .8rem 0 0; font-size: .75rem; color: #52676a; }
+.chat-composer { position: sticky; bottom: 0; padding: 1rem; background: #edf5f3; border: 1px solid #cbdcda; border-radius: 18px; margin-bottom: 1rem; }
+.chat-composer textarea { width: 100%; resize: vertical; }
+@media (max-width: 480px) { .topbar .logo span { font-size: 14px; } .chat-bubble { padding: .8rem; } }

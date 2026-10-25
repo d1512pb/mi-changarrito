@@ -34,7 +34,7 @@ topbar = function () {
   return `<header class="topbar"><div class="topbar__bar"><div class="topbar__in">
     ${stack.length > 1 ? `<button class="iconbtn" data-act="back" aria-label="Regresar">${icon("back")}</button>` : ""}
     <button class="logo" data-act="home" aria-label="Mi Changarrito, inicio">${LOGO_MARK}<span>Mi Changarrito</span></button><span class="topbar__sp"></span>
-    ${user ? `<button class="btn btn--ghost btn--sm" ${goAttr(PANEL[user.role])}>Mi panel</button><button class="iconbtn" data-act="logout" aria-label="Cerrar sesión">${icon("logout")}</button>` : `<button class="loginbtn" ${goAttr("login")}>${icon("user")}<span>Iniciar sesión</span></button>`}
+    ${user ? `<button class="iconbtn" ${goAttr("chat")} aria-label="Abrir chat de IA" title="Chat de IA">${icon("sparkle")}</button><button class="btn btn--ghost btn--sm" ${goAttr(PANEL[user.role])}>Mi panel</button><button class="iconbtn" data-act="logout" aria-label="Cerrar sesión">${icon("logout")}</button>` : `<button class="loginbtn" ${goAttr("login")}>${icon("user")}<span>Iniciar sesión</span></button>`}
     </div></div><div class="toldo" aria-hidden="true"></div></header>`;
 };
 ACTS.logout = async () => {
