@@ -25,6 +25,8 @@ class Settings(BaseSettings):
     S3_URL_TTL_SECONDS: int = Field(300, ge=60, le=3600)
     PRO_EMAIL: Optional[str] = None
     PRO_PASSWORD: Optional[str] = None
+    CHAT_PROVIDER: str = "local"
+    CHAT_CALLS_PER_MINUTE: int = Field(10, ge=1, le=30)
 
     @property
     def CORS_ORIGIN(self) -> List[str]:

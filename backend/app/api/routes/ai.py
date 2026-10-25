@@ -144,7 +144,6 @@ async def status():
 
 
 @router.post("/recommend")
-@router.post("/chat", include_in_schema=False)
 async def recommendation(
     request: RecommendationRequest,
     _: dict = Depends(get_current_user),

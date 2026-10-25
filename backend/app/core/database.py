@@ -162,6 +162,7 @@ class Database:
         self.offer = Collection("offer")
         self.sessions = Collection("sessions")
         self.tianguis = Collection("tianguis")
+        self.chat = Collection("chat")
 
     async def connect(self, database_url: Optional[str] = None):
         url = database_url or settings.DATABASE_URL
@@ -202,6 +203,7 @@ class Database:
             self.offer = PostgresCollection(self, "offer")
             self.sessions = PostgresCollection(self, "sessions")
             self.tianguis = PostgresCollection(self, "tianguis")
+            self.chat = PostgresCollection(self, "chat")
         except BaseException:
             await self.disconnect()
             raise
